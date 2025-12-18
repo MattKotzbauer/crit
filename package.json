@@ -1,0 +1,22 @@
+{
+  "name": "crit",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "crit": "./src/cli.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/cli.ts",
+    "mcp": "bun run src/mcp/server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
