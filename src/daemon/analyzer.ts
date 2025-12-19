@@ -7,8 +7,8 @@
  * - TEST: Missing test coverage
  */
 
-import { join, basename, dirname, extname } from "path";
-import { existsSync, readFileSync } from "fs";
+import { join, basename, dirname, extname, relative } from "path";
+import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import type { WatchEvent } from "./watcher";
 import {
   addCriticism,
@@ -19,9 +19,60 @@ import { wasRejected } from "../lib/criticism/preferences";
 import type { Criticism, CriticismCategory } from "../lib/criticism/types";
 import { analyzeFile as analyzeBloat } from "../lib/bloat";
 
-interface AnalysisResult {
+export interface AnalysisResult {
   criticisms: Criticism[];
   analyzed: number;
+}
+
+/**
+ * Recursively find all source files in a directory
+ */
+function findSourceFiles(dir: string, projectRoot: string): string[] {
+  const files: string[] = [];
+
+  // Skip common non-source directories
+  const skipDirs = ["node_modules", ".git", "dist", "build", ".crit", ".orchestra", "coverage"];
+
+  try {
+    const entries = readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        if (!skipDirs.includes(entry.name)) {
+          files.push(...findSourceFiles(fullPath, projectRoot));
+        }
+      } else if (entry.isFile()) {
+        const ext = extname(entry.name);
+        if ([".ts", ".tsx", ".js", ".jsx"].includes(ext)) {
+          // Skip test files
+          if (!entry.name.includes(".test.") && !entry.name.includes(".spec.")) {
+            files.push(relative(projectRoot, fullPath));
+          }
+        }
+      }
+    }
+  } catch {
+    // Ignore read errors
+  }
+
+  return files;
+}
+
+/**
+ * Perform initial analysis of entire project (cold start)
+ */
+export async function analyzeProject(projectPath: string): Promise<AnalysisResult> {
+  const sourceFiles = findSourceFiles(projectPath, projectPath);
+
+  // Convert to WatchEvents for reuse of analyzeChanges
+  const events: WatchEvent[] = sourceFiles.map(f => ({
+    type: "change" as const,
+    path: f,
+  }));
+
+  return analyzeChanges(projectPath, events);
 }
 
 /**

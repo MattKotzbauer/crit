@@ -4,21 +4,22 @@
  * Navigate with hjkl or arrows, enter to select, q to quit
  */
 
-import { loadProject, getGoalsSummary } from "../lib/project";
-import type { Goal } from "../lib/project";
 import { getRecentHistory } from "../lib/state/history";
 import type { HistoryEntry } from "../lib/state/types";
-import { existsSync, watch, type FSWatcher } from "fs";
+import { existsSync, watch, mkdirSync, type FSWatcher } from "fs";
 import { join } from "path";
-import { spawn } from "child_process";
-import { showIssuesBrowser, addMockCriticisms } from "./issues";
+import { showIssuesBrowser } from "./issues";
 import { getPendingCriticisms } from "../lib/criticism/store";
+import { startDaemon as startCritDaemon, type DaemonHandle } from "../daemon";
+import { analyzeProject } from "../daemon/analyzer";
+import { initPreferences } from "../lib/criticism/preferences";
+import { initStatus } from "../lib/criticism/status";
 
 // Cached data for panels
 let cachedHistory: HistoryEntry[] = [];
-let cachedGoals: Goal[] = [];
 let historyWatcher: FSWatcher | null = null;
 let projectWatcher: FSWatcher | null = null;
+let daemonHandle: DaemonHandle | null = null;
 
 // ANSI escape codes
 const ESC = "\x1b";
@@ -28,6 +29,7 @@ const SHOW_CURSOR = `${ESC}[?25h`;
 const BOLD = `${ESC}[1m`;
 const DIM = `${ESC}[2m`;
 const RESET = `${ESC}[0m`;
+const RED = `${ESC}[31m`;
 const GREEN = `${ESC}[32m`;
 const YELLOW = `${ESC}[33m`;
 const BLUE = `${ESC}[34m`;
@@ -128,37 +130,54 @@ async function showStatus(): Promise<void> {
 
   console.log(`${BOLD}${CYAN}crit status${RESET}\n`);
 
-  if (!existsSync(critDir)) {
-    console.log(`${DIM}Not initialized. Select 'Start' to begin.${RESET}`);
+  // Daemon status - if TUI is running, daemon is running
+  const daemonRunning = daemonHandle !== null;
+  console.log(`Daemon: ${daemonRunning ? `${GREEN}running${RESET}` : `${DIM}stopped${RESET}`}\n`);
+
+  // Issues count
+  const issueCount = getPendingCriticisms(cwd).length;
+  console.log(`${BOLD}Issues${RESET}: ${issueCount > 0 ? `${YELLOW}${issueCount} pending${RESET}` : `${DIM}none${RESET}`}\n`);
+
+  // Load status from status.md
+  const { parseStatus } = await import("../lib/criticism/status");
+  const status = parseStatus(cwd);
+
+  // Deliverables
+  console.log(`${BOLD}Deliverables${RESET} (${status.deliverables.length})`);
+  if (status.deliverables.length === 0) {
+    console.log(`  ${DIM}None tracked yet${RESET}`);
   } else {
-    const project = await loadProject(cwd);
-    const summary = await getGoalsSummary(cwd);
-    const pidFile = join(critDir, "daemon.pid");
-    const daemonRunning = existsSync(pidFile);
-
-    console.log(`Daemon: ${daemonRunning ? `${GREEN}running${RESET}` : `${DIM}stopped${RESET}`}\n`);
-
-    console.log(`${BOLD}Goals${RESET} (${summary.total})`);
-    if (project.goals.length === 0) {
-      console.log(`  ${DIM}No goals yet${RESET}`);
-    } else {
-      for (const goal of project.goals) {
-        const icon = goal.status === "done" ? `${GREEN}✓${RESET}` :
-                     goal.status === "working" ? `${YELLOW}→${RESET}` :
-                     goal.status === "partial" ? `${YELLOW}~${RESET}` :
-                     goal.status === "broken" ? `${YELLOW}✗${RESET}` : `${DIM}○${RESET}`;
-        console.log(`  ${icon} ${goal.text}`);
-      }
+    for (const d of status.deliverables) {
+      const icon = d.done ? `${GREEN}✓${RESET}` : d.inProgress ? `${YELLOW}→${RESET}` : `${DIM}○${RESET}`;
+      console.log(`  ${icon} ${d.name}`);
     }
+  }
 
-    console.log(`\n${BOLD}Rules${RESET} (${project.rules.length})`);
-    if (project.rules.length === 0) {
-      console.log(`  ${DIM}No rules yet${RESET}`);
-    } else {
-      for (const rule of project.rules) {
-        console.log(`  ${DIM}•${RESET} ${rule.text}`);
-      }
+  // Insights
+  console.log(`\n${BOLD}Insights${RESET} (${status.insights.length})`);
+  if (status.insights.length === 0) {
+    console.log(`  ${DIM}None recorded yet${RESET}`);
+  } else {
+    for (const insight of status.insights) {
+      console.log(`  ${DIM}•${RESET} ${insight}`);
     }
+  }
+
+  // Current focus
+  if (status.currentFocus) {
+    console.log(`\n${BOLD}Current Focus${RESET}`);
+    console.log(`  ${status.currentFocus}`);
+  }
+
+  // Preferences stats
+  const { parsePreferences } = await import("../lib/criticism/preferences");
+  const prefs = parsePreferences(cwd);
+  const accepted = prefs.filter(p => p.decision === "accepted").length;
+  const rejected = prefs.filter(p => p.decision === "rejected").length;
+
+  if (accepted > 0 || rejected > 0) {
+    console.log(`\n${BOLD}Decisions${RESET}`);
+    console.log(`  ${GREEN}${accepted}${RESET} accepted, ${DIM}${rejected}${RESET} rejected`);
   }
 
   console.log(`\n${DIM}Press any key to go back${RESET}`);
@@ -171,87 +190,7 @@ async function showStatus(): Promise<void> {
   render();
 }
 
-async function startDaemon(): Promise<void> {
-  inSubmenu = true;
-  process.stdout.write(CLEAR);
-  console.log(`${BOLD}${CYAN}Starting crit...${RESET}\n`);
-
-  const child = spawn("crit", ["start"], {
-    detached: true,
-    stdio: "ignore",
-    cwd,
-  });
-  child.unref();
-
-  console.log(`${GREEN}Daemon started in background${RESET}`);
-  console.log(`\n${DIM}Press any key to go back${RESET}`);
-
-  await new Promise<void>((resolve) => {
-    process.stdin.once("data", () => resolve());
-  });
-
-  inSubmenu = false;
-  render();
-}
-
-async function stopDaemon(): Promise<void> {
-  inSubmenu = true;
-  process.stdout.write(CLEAR);
-  console.log(`${BOLD}${CYAN}Stopping crit...${RESET}\n`);
-
-  const { stop } = await import("../commands/stop");
-  await stop();
-
-  console.log(`\n${DIM}Press any key to go back${RESET}`);
-
-  await new Promise<void>((resolve) => {
-    process.stdin.once("data", () => resolve());
-  });
-
-  inSubmenu = false;
-  render();
-}
-
-async function editProject(): Promise<void> {
-  const projectFile = join(critDir, "project.md");
-
-  if (!existsSync(projectFile)) {
-    inSubmenu = true;
-    process.stdout.write(CLEAR);
-    console.log(`${YELLOW}No project.md found. Start crit first.${RESET}`);
-    console.log(`\n${DIM}Press any key to go back${RESET}`);
-    await new Promise<void>((resolve) => {
-      process.stdin.once("data", () => resolve());
-    });
-    inSubmenu = false;
-    render();
-    return;
-  }
-
-  // Prepare terminal for editor
-  inSubmenu = true;
-  process.stdout.write(SHOW_CURSOR);
-  process.stdout.write(CLEAR);
-  process.stdin.setRawMode(false);
-  process.stdin.pause();
-
-  const editor = process.env.EDITOR || "vim";
-  const child = spawn(editor, [projectFile], {
-    stdio: "inherit",
-    cwd,
-  });
-
-  await new Promise<void>((resolve) => {
-    child.on("close", () => resolve());
-  });
-
-  // Restore TUI
-  process.stdin.resume();
-  process.stdin.setRawMode(true);
-  process.stdout.write(HIDE_CURSOR);
-  inSubmenu = false;
-  render();
-}
+// Removed: startDaemon, stopDaemon, editProject - daemon auto-manages with TUI
 
 async function showIssues(): Promise<void> {
   const pendingCount = getPendingCriticisms(cwd).length;
@@ -261,7 +200,7 @@ async function showIssues(): Promise<void> {
     process.stdout.write(CLEAR);
     console.log(`${BOLD}${CYAN}Issues${RESET}\n`);
     console.log(`${DIM}No pending issues.${RESET}`);
-    console.log(`${DIM}Run analysis to find potential improvements.${RESET}`);
+    console.log(`${DIM}The daemon will analyze changes and generate issues.${RESET}`);
     console.log(`\n${DIM}Press any key to go back${RESET}`);
 
     await new Promise<void>((resolve) => {
@@ -279,19 +218,21 @@ async function showIssues(): Promise<void> {
 
   await showIssuesBrowser({
     projectRoot: cwd,
-    onAccept: async (criticism, reasoning) => {
-      // TODO: Apply diff if available
-      console.log(`Accepted: ${criticism.subject}`);
+    onAccept: async (_criticism, _reasoning) => {
+      // Diff application happens in issues.ts via logAccepted
     },
-    onReject: async (criticism, reasoning) => {
-      console.log(`Rejected: ${criticism.subject}`);
+    onReject: async (_criticism, _reasoning) => {
+      // Rejection logging happens in issues.ts via logRejected
     },
     onExit: () => {
       // Will be handled by promise resolution
     },
   });
 
-  // Restore main TUI
+  // Restore main TUI - must re-enable raw mode!
+  process.stdin.setRawMode(true);
+  process.stdin.resume();
+  process.stdout.write(HIDE_CURSOR);
   setupWatchers();
   await refreshData();
   process.stdin.on("data", async (key) => {
@@ -304,32 +245,9 @@ async function showIssues(): Promise<void> {
   render();
 }
 
-async function loadMockIssues(): Promise<void> {
-  inSubmenu = true;
-  process.stdout.write(CLEAR);
-  console.log(`${BOLD}${CYAN}Loading mock issues...${RESET}\n`);
-
-  addMockCriticisms(cwd);
-
-  console.log(`${GREEN}Added mock criticisms for testing.${RESET}`);
-  console.log(`${DIM}Select 'Issues' to browse them.${RESET}`);
-  console.log(`\n${DIM}Press any key to go back${RESET}`);
-
-  await new Promise<void>((resolve) => {
-    process.stdin.once("data", () => resolve());
-  });
-
-  inSubmenu = false;
-  render();
-}
-
 const menuItems: MenuItem[] = [
   { label: "Issues", action: showIssues },
   { label: "Status", action: showStatus },
-  { label: "Start", action: startDaemon },
-  { label: "Stop", action: stopDaemon },
-  { label: "Edit project.md", action: editProject },
-  { label: "[Dev] Load mock issues", action: loadMockIssues },
   { label: "Quit", action: () => { running = false; } },
 ];
 
@@ -341,13 +259,6 @@ async function refreshData(): Promise<void> {
     cachedHistory = await getRecentHistory(cwd, 10);
   } catch {
     cachedHistory = [];
-  }
-
-  try {
-    const project = await loadProject(cwd);
-    cachedGoals = project.goals;
-  } catch {
-    cachedGoals = [];
   }
 }
 
@@ -407,33 +318,34 @@ function renderActivityPanel(width: number, height: number): string[] {
   return lines;
 }
 
-// Render Goals panel
-function renderGoalsPanel(width: number, height: number): string[] {
+// Render Issues panel
+function renderIssuesPanel(width: number, height: number): string[] {
   const lines: string[] = [];
-  lines.push(`${BOLD}${GREEN}Goals${RESET}`);
+  const criticisms = getPendingCriticisms(cwd);
+
+  lines.push(`${BOLD}${YELLOW}Issues${RESET}`);
   lines.push(`${DIM}${"─".repeat(Math.min(width - 2, 40))}${RESET}`);
 
-  if (cachedGoals.length === 0) {
-    lines.push(`${DIM}No goals defined${RESET}`);
-    lines.push(`${DIM}Edit project.md to${RESET}`);
-    lines.push(`${DIM}add your goals${RESET}`);
+  if (criticisms.length === 0) {
+    lines.push(`${DIM}No pending issues${RESET}`);
+    lines.push(`${DIM}Daemon is watching${RESET}`);
+    lines.push(`${DIM}for changes...${RESET}`);
   } else {
-    const maxGoals = Math.min(cachedGoals.length, height - 3);
+    const maxIssues = Math.min(criticisms.length, height - 3);
 
-    for (let i = 0; i < maxGoals; i++) {
-      const goal = cachedGoals[i];
-      const icon = goal.status === "done" ? `${GREEN}✓${RESET}` :
-                   goal.status === "working" ? `${YELLOW}→${RESET}` :
-                   goal.status === "partial" ? `${YELLOW}~${RESET}` :
-                   goal.status === "broken" ? `${YELLOW}✗${RESET}` : `${DIM}○${RESET}`;
-      const text = goal.text.length > width - 5
-        ? goal.text.slice(0, width - 8) + "..."
-        : goal.text;
+    for (let i = 0; i < maxIssues; i++) {
+      const c = criticisms[i];
+      const icon = c.category === "ELIM" ? `${RED}✗${RESET}` :
+                   c.category === "SIMPLIFY" ? `${YELLOW}↓${RESET}` :
+                   `${CYAN}◆${RESET}`;
+      const text = c.subject.length > width - 5
+        ? c.subject.slice(0, width - 8) + "..."
+        : c.subject;
       lines.push(`${icon} ${text}`);
     }
 
-    if (cachedGoals.length > maxGoals) {
-      lines.push(`${DIM}+${cachedGoals.length - maxGoals} more...${RESET}`);
+    if (criticisms.length > maxIssues) {
+      lines.push(`${DIM}+${criticisms.length - maxIssues} more...${RESET}`);
     }
   }
 
@@ -445,12 +357,22 @@ function renderMenu(): string[] {
   lines.push(`${BOLD}${BLUE}crit${RESET} ${DIM}v0.1.0${RESET}`);
   lines.push("");
 
+  // Get current issue count
+  const currentIssueCount = getPendingCriticisms(cwd).length;
+
   for (let i = 0; i < menuItems.length; i++) {
     const item = menuItems[i];
+    let label = item.label;
+
+    // Add issue count badge to Issues menu item
+    if (item.label === "Issues" && currentIssueCount > 0) {
+      label = `${item.label} ${YELLOW}(${currentIssueCount})${RESET}`;
+    }
+
     if (i === selectedIndex) {
-      lines.push(`${CYAN}❯ ${BOLD}${item.label}${RESET}`);
+      lines.push(`${CYAN}❯ ${BOLD}${label}${RESET}`);
     } else {
-      lines.push(`  ${item.label}`);
+      lines.push(`  ${label}`);
     }
   }
 
@@ -460,7 +382,36 @@ function renderMenu(): string[] {
   return lines;
 }
 
-function renderHelpPanel(): string[] {
+// Draw a floating box overlay at a position
+function drawOverlay(lines: string[], startRow: number, startCol: number): void {
+  const maxWidth = Math.max(...lines.map(l => stripAnsi(l).length));
+  const boxWidth = maxWidth + 4;
+  const boxHeight = lines.length + 2;
+
+  // ANSI escape for positioning: ESC[row;colH
+  const moveTo = (row: number, col: number) => `${ESC}[${row};${col}H`;
+
+  // Draw top border
+  process.stdout.write(moveTo(startRow, startCol));
+  process.stdout.write(`${DIM}┌${"─".repeat(boxWidth - 2)}┐${RESET}`);
+
+  // Draw content lines with side borders
+  for (let i = 0; i < lines.length; i++) {
+    process.stdout.write(moveTo(startRow + 1 + i, startCol));
+    const line = lines[i];
+    const padding = maxWidth - stripAnsi(line).length;
+    process.stdout.write(`${DIM}│${RESET} ${line}${" ".repeat(padding)} ${DIM}│${RESET}`);
+  }
+
+  // Draw bottom border
+  process.stdout.write(moveTo(startRow + boxHeight - 1, startCol));
+  process.stdout.write(`${DIM}└${"─".repeat(boxWidth - 2)}┘${RESET}`);
+
+  // Move cursor to bottom
+  process.stdout.write(moveTo(startRow + boxHeight, 1));
+}
+
+function renderHelpContent(): string[] {
   return [
     `${BOLD}Controls${RESET}`,
     ``,
@@ -492,20 +443,6 @@ function render(): void {
 
   const { cols, rows } = getTerminalSize();
 
-  // Show help overlay
-  if (showHelp) {
-    const helpLines = renderHelpPanel();
-    const verticalPad = Math.max(0, Math.floor((rows - helpLines.length) / 2));
-
-    for (let i = 0; i < verticalPad; i++) {
-      console.log("");
-    }
-    for (const line of helpLines) {
-      console.log(centerLine(line, cols));
-    }
-    return;
-  }
-
   const layout = getLayoutMode();
   const menuLines = renderMenu();
 
@@ -523,10 +460,10 @@ function render(): void {
     const goalsHeight = availableHeight - activityHeight - 1;
 
     const activityLines = renderActivityPanel(panelWidth, activityHeight);
-    const goalsLines = renderGoalsPanel(panelWidth, goalsHeight);
+    const issuesLines = renderIssuesPanel(panelWidth, goalsHeight);
 
     // Combine panels with a gap
-    const rightContent = [...activityLines, "", ...goalsLines];
+    const rightContent = [...activityLines, "", ...issuesLines];
 
     const totalLines = Math.max(leftContent.length, rightContent.length);
 
@@ -560,14 +497,14 @@ function render(): void {
     const panelHeight = Math.min(remainingHeight, 10);
 
     const activityLines = renderActivityPanel(panelWidth, panelHeight);
-    const goalsLines = renderGoalsPanel(panelWidth, panelHeight);
+    const issuesLines = renderIssuesPanel(panelWidth, panelHeight);
 
     if (cols >= panelWidth * 2 + 6) {
       // Side by side
-      const maxLines = Math.max(activityLines.length, goalsLines.length);
+      const maxLines = Math.max(activityLines.length, issuesLines.length);
       for (let i = 0; i < maxLines; i++) {
         const left = i < activityLines.length ? activityLines[i] : "";
-        const right = i < goalsLines.length ? goalsLines[i] : "";
+        const right = i < issuesLines.length ? issuesLines[i] : "";
         const leftPadded = left + " ".repeat(Math.max(1, panelWidth - stripAnsi(left).length + 2));
         console.log(leftPadded + right);
       }
@@ -577,7 +514,7 @@ function render(): void {
         console.log(line);
       }
       console.log("");
-      for (const line of goalsLines) {
+      for (const line of issuesLines) {
         console.log(line);
       }
     }
@@ -591,6 +528,19 @@ function render(): void {
     for (const line of menuLines) {
       console.log(line);
     }
+  }
+
+  // Draw help overlay on top if showing
+  if (showHelp) {
+    const helpLines = renderHelpContent();
+    const helpHeight = helpLines.length + 2;
+    const helpWidth = Math.max(...helpLines.map(l => stripAnsi(l).length)) + 4;
+
+    // Center the overlay
+    const startRow = Math.max(1, Math.floor((rows - helpHeight) / 2));
+    const startCol = Math.max(1, Math.floor((cols - helpWidth) / 2));
+
+    drawOverlay(helpLines, startRow, startCol);
   }
 }
 
@@ -702,8 +652,43 @@ export async function tui(): Promise<void> {
     process.exit(1);
   }
 
+  // Initialize .crit directory if needed
+  if (!existsSync(critDir)) {
+    mkdirSync(critDir, { recursive: true });
+    mkdirSync(join(critDir, "state"), { recursive: true });
+    mkdirSync(join(critDir, "context"), { recursive: true });
+  }
+
+  // Initialize context files
+  initPreferences(cwd);
+  initStatus(cwd);
+
   // Load initial data
   await refreshData();
+
+  // Cold-start analysis if no existing criticisms
+  const existingCriticisms = getPendingCriticisms(cwd);
+  if (existingCriticisms.length === 0) {
+    // Run initial project analysis in background
+    analyzeProject(cwd).catch(() => {
+      // Ignore analysis errors
+    });
+  }
+
+  // Start daemon automatically
+  try {
+    daemonHandle = await startCritDaemon(cwd, {
+      onCriticisms: (count) => {
+        issueCount = getPendingCriticisms(cwd).length;
+        if (!inSubmenu && !showHelp) render();
+      },
+      writeHistory: true,
+      writeReports: true,
+      analyzeCriticisms: true,
+    });
+  } catch {
+    // Ignore daemon start errors
+  }
 
   process.stdin.setRawMode(true);
   process.stdin.resume();
@@ -739,6 +724,12 @@ export async function tui(): Promise<void> {
 }
 
 function cleanup(): void {
+  // Stop daemon
+  if (daemonHandle) {
+    daemonHandle.stop();
+    daemonHandle = null;
+  }
+
   cleanupWatchers();
   process.stdout.write(SHOW_CURSOR);
   process.stdout.write(CLEAR);

@@ -1,84 +1,304 @@
 {
   "criticisms": [
     {
-      "category": "ELIM",
-      "subject": "unused formatDate helper",
-      "description": "The formatDate function in utils.ts is never called anywhere in the codebase. It was likely added for a feature that was never implemented or has since been removed.",
-      "files": [
-        "src/lib/utils.ts"
-      ],
-      "location": "src/lib/utils.ts:42",
-      "severity": "low",
-      "status": "pending",
-      "id": "elim-162e481d",
-      "createdAt": "2025-12-19T18:07:20.967Z"
-    },
-    {
-      "category": "ELIM",
-      "subject": "dead export in types",
-      "description": "The UserPreferences type is exported but never imported by any other file.",
-      "files": [
-        "src/types/index.ts"
-      ],
-      "location": "src/types/index.ts:15",
-      "severity": "low",
-      "status": "pending",
-      "id": "elim-f8b08f9",
-      "createdAt": "2025-12-19T18:07:20.968Z"
-    },
-    {
+      "id": "simplify-68559c22",
       "category": "SIMPLIFY",
-      "subject": "complex nested auth checks",
-      "description": "The authentication logic in middleware.ts has deeply nested if statements that could be simplified using early returns and a guard clause pattern.",
+      "subject": "File has 533 lines",
+      "description": "File has 533 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
       "files": [
-        "src/middleware.ts"
+        "src/tui/issues.ts"
       ],
-      "location": "src/middleware.ts:28-52",
+      "location": "src/tui/issues.ts",
       "severity": "medium",
       "status": "pending",
-      "diff": "- if (user) {\n-   if (user.isActive) {\n-     if (hasPermission(user)) {\n+ if (!user) return unauthorized();\n+ if (!user.isActive) return forbidden();\n+ if (!hasPermission(user)) return forbidden();",
-      "id": "simplify-58fcbfaf",
-      "createdAt": "2025-12-19T18:07:20.968Z"
+      "createdAt": "2025-12-19T22:10:41.304Z"
     },
     {
+      "id": "simplify-344756ac",
       "category": "SIMPLIFY",
-      "subject": "redundant wrapper class",
-      "description": "ConfigManager is a class that wraps a simple object. It could be replaced with a plain object and helper functions.",
+      "subject": "long function: renderRightPanel",
+      "description": "Function at line 176 is 80 lines long. Consider breaking it into smaller, focused functions.",
       "files": [
-        "src/config/manager.ts"
+        "src/tui/issues.ts"
       ],
-      "location": "src/config/manager.ts",
+      "location": "src/tui/issues.ts:176",
       "severity": "low",
       "status": "pending",
-      "id": "simplify-59fa85c9",
-      "createdAt": "2025-12-19T18:07:20.968Z"
+      "createdAt": "2025-12-19T22:10:41.304Z"
     },
     {
-      "category": "TEST",
-      "subject": "auth flow missing tests",
-      "description": "The authentication flow in auth.ts has no test coverage. This is a critical path that should have unit tests.",
+      "id": "simplify-2c08fbfd",
+      "category": "SIMPLIFY",
+      "subject": "File has 707 lines",
+      "description": "File has 707 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
       "files": [
-        "src/auth.ts"
+        "src/tui/index.ts"
       ],
-      "location": "src/auth.ts",
-      "severity": "high",
+      "location": "src/tui/index.ts",
+      "severity": "medium",
       "status": "pending",
-      "id": "test-282202bf",
-      "createdAt": "2025-12-19T18:07:20.968Z"
+      "createdAt": "2025-12-19T22:10:41.305Z"
     },
     {
-      "category": "TEST",
-      "subject": "payment validation untested",
-      "description": "Payment amount validation logic has edge cases (negative amounts, currency conversion) that are not covered by tests.",
+      "id": "simplify-41d6d582",
+      "category": "SIMPLIFY",
+      "subject": "long function: showIssues",
+      "description": "Function at line 180 is 52 lines long. Consider breaking it into smaller, focused functions.",
       "files": [
-        "src/payment/validate.ts"
+        "src/tui/index.ts"
       ],
-      "location": "src/payment/validate.ts:18-45",
+      "location": "src/tui/index.ts:180",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.305Z"
+    },
+    {
+      "id": "simplify-4ef165fc",
+      "category": "SIMPLIFY",
+      "subject": "long function: findSimplifications",
+      "description": "Function at line 223 is 102 lines long. Consider breaking it into smaller, focused functions.",
+      "files": [
+        "src/daemon/analyzer.ts"
+      ],
+      "location": "src/daemon/analyzer.ts:223",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.307Z"
+    },
+    {
+      "id": "simplify-4177d4a2",
+      "category": "SIMPLIFY",
+      "subject": "File has 651 lines",
+      "description": "File has 651 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/mcp/handlers.ts"
+      ],
+      "location": "src/mcp/handlers.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.310Z"
+    },
+    {
+      "id": "simplify-7e6691c0",
+      "category": "SIMPLIFY",
+      "subject": "File has high abstraction complexity (score: 11)",
+      "description": "File has high abstraction complexity (score: 11)\n\nSuggestion: Consider simplifying - prefer composition over deep inheritance",
+      "files": [
+        "src/mcp/handlers.ts"
+      ],
+      "location": "src/mcp/handlers.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.310Z"
+    },
+    {
+      "id": "simplify-5738d688",
+      "category": "SIMPLIFY",
+      "subject": "54% of file is comments (21 comment lines, 18 code lines)",
+      "description": "54% of file is comments (21 comment lines, 18 code lines)\n\nSuggestion: High comment ratio may indicate unclear code. Consider refactoring to make code self-documenting",
+      "files": [
+        "src/lib/context/types.ts"
+      ],
+      "location": "src/lib/context/types.ts",
       "severity": "high",
       "status": "pending",
-      "id": "test-107174d2",
-      "createdAt": "2025-12-19T18:07:20.968Z"
+      "createdAt": "2025-12-19T22:10:41.413Z"
+    },
+    {
+      "id": "simplify-677ef805",
+      "category": "SIMPLIFY",
+      "subject": "long function: scanDirectory",
+      "description": "Function at line 286 is 51 lines long. Consider breaking it into smaller, focused functions.",
+      "files": [
+        "src/lib/overview/scanner.ts"
+      ],
+      "location": "src/lib/overview/scanner.ts:286",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.424Z"
+    },
+    {
+      "id": "simplify-3841ea51",
+      "category": "SIMPLIFY",
+      "subject": "53% of file is comments (47 comment lines, 41 code lines)",
+      "description": "53% of file is comments (47 comment lines, 41 code lines)\n\nSuggestion: High comment ratio may indicate unclear code. Consider refactoring to make code self-documenting",
+      "files": [
+        "src/lib/overview/types.ts"
+      ],
+      "location": "src/lib/overview/types.ts",
+      "severity": "high",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.425Z"
+    },
+    {
+      "id": "simplify-14f27270",
+      "category": "SIMPLIFY",
+      "subject": "File has high abstraction complexity (score: 18)",
+      "description": "File has high abstraction complexity (score: 18)\n\nSuggestion: Consider simplifying - prefer composition over deep inheritance",
+      "files": [
+        "src/lib/bloat/analyzer.ts"
+      ],
+      "location": "src/lib/bloat/analyzer.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.431Z"
+    },
+    {
+      "id": "simplify-676a9446",
+      "category": "SIMPLIFY",
+      "subject": "long function: generateSummary",
+      "description": "Function at line 42 is 57 lines long. Consider breaking it into smaller, focused functions.",
+      "files": [
+        "src/lib/bloat/analyzer.ts"
+      ],
+      "location": "src/lib/bloat/analyzer.ts:42",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.431Z"
+    },
+    {
+      "id": "simplify-5205fb98",
+      "category": "SIMPLIFY",
+      "subject": "Function 'foo' is a simple wrapper around 'bar'",
+      "description": "Function 'foo' is a simple wrapper around 'bar'\n\nSuggestion: Consider using 'bar' directly",
+      "files": [
+        "src/lib/bloat/detector.ts"
+      ],
+      "location": "src/lib/bloat/detector.ts:151",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.432Z"
+    },
+    {
+      "id": "simplify-28b3ca5c",
+      "category": "SIMPLIFY",
+      "subject": "35% of file is comments (9 comment lines, 17 code lines)",
+      "description": "35% of file is comments (9 comment lines, 17 code lines)\n\nSuggestion: High comment ratio may indicate unclear code. Consider refactoring to make code self-documenting",
+      "files": [
+        "src/lib/bloat/index.ts"
+      ],
+      "location": "src/lib/bloat/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:10:41.432Z"
+    },
+    {
+      "id": "simplify-17ad0e98",
+      "category": "SIMPLIFY",
+      "subject": "File has 724 lines",
+      "description": "File has 724 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:19:56.283Z"
+    },
+    {
+      "id": "simplify-fb02c56",
+      "category": "SIMPLIFY",
+      "subject": "File has 722 lines",
+      "description": "File has 722 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:20:05.623Z"
+    },
+    {
+      "id": "simplify-7b34a14",
+      "category": "SIMPLIFY",
+      "subject": "File has 720 lines",
+      "description": "File has 720 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:20:46.626Z"
+    },
+    {
+      "id": "simplify-68211588",
+      "category": "SIMPLIFY",
+      "subject": "File has 713 lines",
+      "description": "File has 713 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:20:55.666Z"
+    },
+    {
+      "id": "simplify-6422a467",
+      "category": "SIMPLIFY",
+      "subject": "File has 714 lines",
+      "description": "File has 714 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:21:12.029Z"
+    },
+    {
+      "id": "simplify-60243346",
+      "category": "SIMPLIFY",
+      "subject": "File has 715 lines",
+      "description": "File has 715 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:21:23.401Z"
+    },
+    {
+      "id": "simplify-f4c7496",
+      "category": "SIMPLIFY",
+      "subject": "File has 744 lines",
+      "description": "File has 744 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:30:53.300Z"
+    },
+    {
+      "id": "simplify-7c7d02ed",
+      "category": "SIMPLIFY",
+      "subject": "File has 730 lines",
+      "description": "File has 730 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:31:02.621Z"
+    },
+    {
+      "id": "simplify-b4e0375",
+      "category": "SIMPLIFY",
+      "subject": "File has 743 lines",
+      "description": "File has 743 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-19T22:31:21.480Z"
     }
   ],
-  "lastAnalysis": "2025-12-19T18:04:20.833Z"
+  "lastAnalysis": "2025-12-19T22:10:41.436Z"
 }

@@ -174,5 +174,258 @@
     "id": "bc4c530a-0d4b-4887-8dc8-b381976a2c45",
     "status": "pending",
     "createdAt": "2025-12-19T18:03:35.465Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "ed9fe0fd-a317-426d-a354-146430172b7e",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:53:11.554Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "e314b80c-d542-43b6-a1dc-f73849efaab5",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:53:33.825Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "d1f4fc90-5d0e-4a09-b85f-006d8f12134f",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:53:41.934Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "c001baaf-1c80-4eb1-bd53-8b9bb3b15dfb",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:54:14.351Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "daa509cb-6a2e-4c5d-bcb7-715507422bca",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:54:42.679Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "a02d6fba-3604-414c-a3e5-ae09fc753c55",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:54:49.567Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "207c4c22-d883-4a23-b886-37b7e69e2de6",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:55:12.966Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/daemon/analyzer.ts",
+    "files": [
+      "/home/matt/thing/crit/src/daemon/analyzer.ts"
+    ],
+    "id": "931c08f8-a606-4276-a73e-f4c0713692e2",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:56:00.044Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "8076d50a-16c7-4fba-8af0-199fd7326c33",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:56:08.534Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "ce963685-eab8-451f-a768-510ef1f46b5e",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:56:16.420Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/issues.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/issues.ts"
+    ],
+    "id": "2bf3ea1c-46e4-41d4-b69f-2591fa9bfa6e",
+    "status": "pending",
+    "createdAt": "2025-12-19T21:57:12.524Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "724fdb25-b2ad-4218-9e38-b9a0a03cf921",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:19:56.311Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "f6da6880-be78-46af-b93d-f4c6397a7925",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:20:05.642Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "327ae4a2-aea2-4067-951f-d0e0a4cfa961",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:20:46.664Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "027ea545-b226-4387-916d-9dc6910a0e03",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:20:55.705Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "b38d47fc-475e-4753-b11d-0ca8212e43ca",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:21:12.047Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "0215663d-2914-49cf-b6f3-2705bf0544bc",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:21:23.429Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "c1341e09-9780-40a0-b9fc-158e700efded",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:21:31.423Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "f89f8d39-bdd9-4e49-980d-7694ead046f2",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:21:39.584Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "694aad05-a78e-450d-9edb-2dfb42e79fd2",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:22:17.466Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "72de2839-39a1-4061-9574-565f939c3b3d",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:30:53.337Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "72d427ef-5da4-4ad5-9f44-266d412fbeda",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:31:02.674Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "36e5e547-11a5-4806-a562-c2843a794f99",
+    "status": "pending",
+    "createdAt": "2025-12-19T22:31:21.506Z"
   }
 ]

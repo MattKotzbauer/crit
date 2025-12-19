@@ -82,3 +82,73 @@
 {"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/daemon/index.ts","files":["/home/matt/thing/crit/src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:35.464Z"}
 {"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:35.479Z"}
 {"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:35.479Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:53:11.549Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:53:11.550Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:53:11.553Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:53:33.807Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:53:33.823Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:53:41.930Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:53:41.933Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:54:02.262Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:54:02.263Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:54:14.312Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:54:14.312Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:54:14.350Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:54:42.642Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:54:42.676Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:54:49.524Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:54:49.566Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:55:12.937Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:55:12.938Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:55:12.964Z"}
+{"action":"apply_rule","description":"Source file modified: src/daemon/analyzer.ts","files":["src/daemon/analyzer.ts"],"timestamp":"2025-12-19T21:55:59.996Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/daemon/analyzer.ts","files":["/home/matt/thing/crit/src/daemon/analyzer.ts"],"timestamp":"2025-12-19T21:56:00.042Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:56:08.481Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:56:08.481Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:56:08.531Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T21:56:16.394Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T21:56:16.419Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/.crit/context/preferences.md","files":["/home/matt/thing/crit/.crit/context/preferences.md"],"timestamp":"2025-12-19T21:56:49.143Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/.crit/context/status.md","files":["/home/matt/thing/crit/.crit/context/status.md"],"timestamp":"2025-12-19T21:56:49.622Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/issues.ts","files":["src/tui/issues.ts"],"timestamp":"2025-12-19T21:57:12.430Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/issues.ts","files":["src/tui/issues.ts"],"timestamp":"2025-12-19T21:57:12.430Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/issues.ts","files":["/home/matt/thing/crit/src/tui/issues.ts"],"timestamp":"2025-12-19T21:57:12.521Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:19:56.278Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:19:56.279Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:19:56.309Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:05.621Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:05.622Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:05.622Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:20:05.641Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:46.624Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:46.625Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:46.625Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:20:46.658Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:55.664Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:55.665Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:20:55.665Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:20:55.704Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:12.027Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:21:12.046Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:23.399Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:23.400Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:21:23.427Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:31.385Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:31.385Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:31.385Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:21:31.422Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:39.562Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:39.562Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:21:39.562Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:21:39.582Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:22:17.404Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:22:17.405Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:22:17.465Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:30:53.299Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:30:53.299Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:30:53.334Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:31:02.615Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:31:02.673Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:31:21.478Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T22:31:21.479Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T22:31:21.505Z"}
