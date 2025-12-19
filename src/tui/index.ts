@@ -157,6 +157,7 @@ async function showStatus(): Promise<void> {
   });
 
   inSubmenu = false;
+  render();
 }
 
 async function startDaemon(): Promise<void> {
@@ -179,6 +180,7 @@ async function startDaemon(): Promise<void> {
   });
 
   inSubmenu = false;
+  render();
 }
 
 async function stopDaemon(): Promise<void> {
@@ -196,6 +198,7 @@ async function stopDaemon(): Promise<void> {
   });
 
   inSubmenu = false;
+  render();
 }
 
 async function editProject(): Promise<void> {
@@ -210,11 +213,16 @@ async function editProject(): Promise<void> {
       process.stdin.once("data", () => resolve());
     });
     inSubmenu = false;
+    render();
     return;
   }
 
+  // Prepare terminal for editor
+  inSubmenu = true;
   process.stdout.write(SHOW_CURSOR);
+  process.stdout.write(CLEAR);
   process.stdin.setRawMode(false);
+  process.stdin.pause();
 
   const editor = process.env.EDITOR || "vim";
   const child = spawn(editor, [projectFile], {
@@ -226,8 +234,12 @@ async function editProject(): Promise<void> {
     child.on("close", () => resolve());
   });
 
+  // Restore TUI
+  process.stdin.resume();
   process.stdin.setRawMode(true);
   process.stdout.write(HIDE_CURSOR);
+  inSubmenu = false;
+  render();
 }
 
 const menuItems: MenuItem[] = [
@@ -279,66 +291,56 @@ function render(): void {
   const menuLines = renderMenu();
 
   if (layout === "wide") {
-    // Art (logo + anime) centered on right, menu on left
+    // Menu top-left, art (logo + anime) on right side, vertically centered
     const artLines = [...LOGO, "", ...ANIME];
 
-    // Calculate total content height and vertical padding
-    const contentHeight = Math.max(menuLines.length, artLines.length);
-    const verticalPad = Math.max(0, Math.floor((rows - contentHeight) / 2));
+    // Vertical padding to center the art
+    const artVerticalPad = Math.max(0, Math.floor((rows - artLines.length) / 2));
 
-    // Print vertical padding
-    for (let i = 0; i < verticalPad; i++) {
-      console.log("");
-    }
+    // Calculate where art starts horizontally (right side)
+    const artHorizontalPad = Math.max(MENU_WIDTH + 4, cols - ANIME_WIDTH - 2);
 
-    // Calculate horizontal positions
-    const leftWidth = MENU_WIDTH + 4;
-    const rightStart = leftWidth;
-    const rightWidth = cols - rightStart;
+    for (let i = 0; i < Math.max(menuLines.length, artVerticalPad + artLines.length); i++) {
+      let line = "";
 
-    for (let i = 0; i < contentHeight; i++) {
-      const menuPart = menuLines[i] || "";
-      const artPart = artLines[i] || "";
+      // Menu part (top-left, no vertical offset)
+      if (i < menuLines.length) {
+        line = menuLines[i];
+      }
 
-      // Center menu in left section
-      const menuCentered = centerLine(menuPart, leftWidth - 4);
-      const menuPadded = menuCentered + " ".repeat(Math.max(0, leftWidth - stripAnsi(menuCentered).length));
+      // Pad to art position
+      const currentLen = stripAnsi(line).length;
+      if (i >= artVerticalPad && i < artVerticalPad + artLines.length) {
+        const artLine = artLines[i - artVerticalPad];
+        line += " ".repeat(Math.max(1, artHorizontalPad - currentLen)) + artLine;
+      }
 
-      // Art on right (already has its own spacing)
-      console.log(`${menuPadded}${artPart}`);
-    }
-  } else if (layout === "tall" || layout === "logo-only") {
-    // Stack everything centered: logo, anime (if tall), then menu
-    const artLines = layout === "tall"
-      ? [...LOGO, "", ...ANIME]
-      : LOGO;
-
-    const allLines = [
-      ...centerLines(artLines, cols),
-      "",
-      ...centerLines(menuLines, cols),
-    ];
-
-    // Vertical centering
-    const verticalPad = Math.max(0, Math.floor((rows - allLines.length) / 2));
-
-    for (let i = 0; i < verticalPad; i++) {
-      console.log("");
-    }
-
-    for (const line of allLines) {
       console.log(line);
     }
-  } else {
-    // Minimal: just menu, centered
-    const centeredMenu = centerLines(menuLines, cols);
-    const verticalPad = Math.max(0, Math.floor((rows - menuLines.length) / 2));
-
-    for (let i = 0; i < verticalPad; i++) {
-      console.log("");
+  } else if (layout === "tall") {
+    // Menu top-left, then logo + anime centered below
+    for (const line of menuLines) {
+      console.log(line);
     }
+    console.log("");
 
-    for (const line of centeredMenu) {
+    const artLines = [...LOGO, "", ...ANIME];
+    for (const line of artLines) {
+      console.log(centerLine(line, cols));
+    }
+  } else if (layout === "logo-only") {
+    // Menu top-left, then logo centered below
+    for (const line of menuLines) {
+      console.log(line);
+    }
+    console.log("");
+
+    for (const line of LOGO) {
+      console.log(centerLine(line, cols));
+    }
+  } else {
+    // Minimal: just menu, top-left
+    for (const line of menuLines) {
       console.log(line);
     }
   }
