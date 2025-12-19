@@ -257,51 +257,88 @@ function renderMenu(): string[] {
   return lines;
 }
 
+// Center a line horizontally
+function centerLine(line: string, width: number): string {
+  const textWidth = stripAnsi(line).length;
+  const padding = Math.max(0, Math.floor((width - textWidth) / 2));
+  return " ".repeat(padding) + line;
+}
+
+// Center an array of lines horizontally
+function centerLines(lines: string[], width: number): string[] {
+  return lines.map(line => centerLine(line, width));
+}
+
 function render(): void {
   if (inSubmenu) return;
 
   process.stdout.write(CLEAR);
 
+  const { cols, rows } = getTerminalSize();
   const layout = getLayoutMode();
   const menuLines = renderMenu();
 
   if (layout === "wide") {
-    // Menu on left, logo + anime on right
+    // Art (logo + anime) centered on right, menu on left
     const artLines = [...LOGO, "", ...ANIME];
-    const maxLines = Math.max(menuLines.length, artLines.length);
 
-    for (let i = 0; i < maxLines; i++) {
+    // Calculate total content height and vertical padding
+    const contentHeight = Math.max(menuLines.length, artLines.length);
+    const verticalPad = Math.max(0, Math.floor((rows - contentHeight) / 2));
+
+    // Print vertical padding
+    for (let i = 0; i < verticalPad; i++) {
+      console.log("");
+    }
+
+    // Calculate horizontal positions
+    const leftWidth = MENU_WIDTH + 4;
+    const rightStart = leftWidth;
+    const rightWidth = cols - rightStart;
+
+    for (let i = 0; i < contentHeight; i++) {
       const menuPart = menuLines[i] || "";
       const artPart = artLines[i] || "";
-      // Pad menu to fixed width, then add art
-      const menuPadded = menuPart + " ".repeat(Math.max(0, MENU_WIDTH - stripAnsi(menuPart).length));
-      console.log(`${menuPadded}  ${artPart}`);
+
+      // Center menu in left section
+      const menuCentered = centerLine(menuPart, leftWidth - 4);
+      const menuPadded = menuCentered + " ".repeat(Math.max(0, leftWidth - stripAnsi(menuCentered).length));
+
+      // Art on right (already has its own spacing)
+      console.log(`${menuPadded}${artPart}`);
     }
-  } else if (layout === "tall") {
-    // Menu, then logo, then anime below
-    for (const line of menuLines) {
-      console.log(line);
+  } else if (layout === "tall" || layout === "logo-only") {
+    // Stack everything centered: logo, anime (if tall), then menu
+    const artLines = layout === "tall"
+      ? [...LOGO, "", ...ANIME]
+      : LOGO;
+
+    const allLines = [
+      ...centerLines(artLines, cols),
+      "",
+      ...centerLines(menuLines, cols),
+    ];
+
+    // Vertical centering
+    const verticalPad = Math.max(0, Math.floor((rows - allLines.length) / 2));
+
+    for (let i = 0; i < verticalPad; i++) {
+      console.log("");
     }
-    console.log("");
-    for (const line of LOGO) {
-      console.log(line);
-    }
-    console.log("");
-    for (const line of ANIME) {
-      console.log(line);
-    }
-  } else if (layout === "logo-only") {
-    // Menu, then just logo below
-    for (const line of menuLines) {
-      console.log(line);
-    }
-    console.log("");
-    for (const line of LOGO) {
+
+    for (const line of allLines) {
       console.log(line);
     }
   } else {
-    // Minimal: just menu
-    for (const line of menuLines) {
+    // Minimal: just menu, centered
+    const centeredMenu = centerLines(menuLines, cols);
+    const verticalPad = Math.max(0, Math.floor((rows - menuLines.length) / 2));
+
+    for (let i = 0; i < verticalPad; i++) {
+      console.log("");
+    }
+
+    for (const line of centeredMenu) {
       console.log(line);
     }
   }
