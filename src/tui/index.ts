@@ -250,11 +250,11 @@ const menuItems: MenuItem[] = [
   { label: "Quit", action: () => { running = false; } },
 ];
 
+let showHelp = false;
+
 function renderMenu(): string[] {
   const lines: string[] = [];
   lines.push(`${BOLD}${BLUE}crit${RESET} ${DIM}v0.1.0${RESET}`);
-  lines.push("");
-  lines.push(`${DIM}j/k ↑/↓ navigate  enter select  q quit${RESET}`);
   lines.push("");
 
   for (let i = 0; i < menuItems.length; i++) {
@@ -266,7 +266,23 @@ function renderMenu(): string[] {
     }
   }
 
+  lines.push("");
+  lines.push(`${DIM}? help${RESET}`);
+
   return lines;
+}
+
+function renderHelpPanel(): string[] {
+  return [
+    `${BOLD}Controls${RESET}`,
+    ``,
+    `${CYAN}j${RESET}/${CYAN}k${RESET} or ${CYAN}↑${RESET}/${CYAN}↓${RESET}  navigate`,
+    `${CYAN}enter${RESET}        select`,
+    `${CYAN}q${RESET}            quit`,
+    `${CYAN}?${RESET}            toggle help`,
+    ``,
+    `${DIM}Press any key to close${RESET}`,
+  ];
 }
 
 // Center a line horizontally
@@ -287,6 +303,21 @@ function render(): void {
   process.stdout.write(CLEAR);
 
   const { cols, rows } = getTerminalSize();
+
+  // Show help overlay
+  if (showHelp) {
+    const helpLines = renderHelpPanel();
+    const verticalPad = Math.max(0, Math.floor((rows - helpLines.length) / 2));
+
+    for (let i = 0; i < verticalPad; i++) {
+      console.log("");
+    }
+    for (const line of helpLines) {
+      console.log(centerLine(line, cols));
+    }
+    return;
+  }
+
   const layout = getLayoutMode();
   const menuLines = renderMenu();
 
@@ -348,8 +379,21 @@ function stripAnsi(str: string): string {
 function handleKey(key: Buffer): void {
   const str = key.toString();
 
+  // If help is showing, any key closes it
+  if (showHelp) {
+    showHelp = false;
+    render();
+    return;
+  }
+
   if (str === "\x03" || str === "q") {
     running = false;
+    return;
+  }
+
+  if (str === "?") {
+    showHelp = true;
+    render();
     return;
   }
 
