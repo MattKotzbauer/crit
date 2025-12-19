@@ -290,56 +290,50 @@ function render(): void {
   const layout = getLayoutMode();
   const menuLines = renderMenu();
 
+  // Logo + menu combined for left side
+  const leftContent = [...LOGO, "", ...menuLines];
+
   if (layout === "wide") {
-    // Menu top-left, art (logo + anime) on right side, vertically centered
-    const artLines = [...LOGO, "", ...ANIME];
+    // Logo + menu top-left, anime on right side vertically centered
+    const animeVerticalPad = Math.max(0, Math.floor((rows - ANIME.length) / 2));
+    const animeHorizontalPad = Math.max(MENU_WIDTH + 4, cols - ANIME_WIDTH - 2);
 
-    // Vertical padding to center the art
-    const artVerticalPad = Math.max(0, Math.floor((rows - artLines.length) / 2));
+    const totalLines = Math.max(leftContent.length, animeVerticalPad + ANIME.length);
 
-    // Calculate where art starts horizontally (right side)
-    const artHorizontalPad = Math.max(MENU_WIDTH + 4, cols - ANIME_WIDTH - 2);
-
-    for (let i = 0; i < Math.max(menuLines.length, artVerticalPad + artLines.length); i++) {
+    for (let i = 0; i < totalLines; i++) {
       let line = "";
 
-      // Menu part (top-left, no vertical offset)
-      if (i < menuLines.length) {
-        line = menuLines[i];
+      // Left content (logo + menu)
+      if (i < leftContent.length) {
+        line = leftContent[i];
       }
 
-      // Pad to art position
+      // Anime on right, vertically centered
       const currentLen = stripAnsi(line).length;
-      if (i >= artVerticalPad && i < artVerticalPad + artLines.length) {
-        const artLine = artLines[i - artVerticalPad];
-        line += " ".repeat(Math.max(1, artHorizontalPad - currentLen)) + artLine;
+      if (i >= animeVerticalPad && i < animeVerticalPad + ANIME.length) {
+        const animeLine = ANIME[i - animeVerticalPad];
+        line += " ".repeat(Math.max(1, animeHorizontalPad - currentLen)) + animeLine;
       }
 
       console.log(line);
     }
   } else if (layout === "tall") {
-    // Menu top-left, then logo + anime centered below
-    for (const line of menuLines) {
+    // Logo + menu top-left, then anime centered below
+    for (const line of leftContent) {
       console.log(line);
     }
     console.log("");
 
-    const artLines = [...LOGO, "", ...ANIME];
-    for (const line of artLines) {
+    for (const line of ANIME) {
       console.log(centerLine(line, cols));
     }
   } else if (layout === "logo-only") {
-    // Menu top-left, then logo centered below
-    for (const line of menuLines) {
+    // Just logo + menu, top-left
+    for (const line of leftContent) {
       console.log(line);
     }
-    console.log("");
-
-    for (const line of LOGO) {
-      console.log(centerLine(line, cols));
-    }
   } else {
-    // Minimal: just menu, top-left
+    // Minimal: just menu, top-left (no logo)
     for (const line of menuLines) {
       console.log(line);
     }
