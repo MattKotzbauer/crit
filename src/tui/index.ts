@@ -5,9 +5,18 @@
  */
 
 import { loadProject, getGoalsSummary } from "../lib/project";
-import { existsSync } from "fs";
+import type { Goal } from "../lib/project";
+import { getRecentHistory } from "../lib/state/history";
+import type { HistoryEntry } from "../lib/state/types";
+import { existsSync, watch, type FSWatcher } from "fs";
 import { join } from "path";
 import { spawn } from "child_process";
+
+// Cached data for panels
+let cachedHistory: HistoryEntry[] = [];
+let cachedGoals: Goal[] = [];
+let historyWatcher: FSWatcher | null = null;
+let projectWatcher: FSWatcher | null = null;
 
 // ANSI escape codes
 const ESC = "\x1b";
@@ -65,8 +74,8 @@ const MENU_WIDTH = 35;
 const MENU_HEIGHT = 10;
 const LOGO_WIDTH = 22;
 const LOGO_HEIGHT = 6;
-const ANIME_WIDTH = 80;
-const ANIME_HEIGHT = 24;
+const PANEL_WIDTH = 45;
+const PANEL_HEIGHT = 15;
 
 interface MenuItem {
   label: string;
@@ -92,13 +101,13 @@ type LayoutMode = "wide" | "tall" | "logo-only" | "minimal";
 function getLayoutMode(): LayoutMode {
   const { cols, rows } = getTerminalSize();
 
-  // Wide: enough room for menu + anime side by side
-  if (cols >= MENU_WIDTH + ANIME_WIDTH + 5 && rows >= ANIME_HEIGHT) {
+  // Wide: enough room for menu + panels side by side
+  if (cols >= MENU_WIDTH + PANEL_WIDTH + 10 && rows >= PANEL_HEIGHT) {
     return "wide";
   }
 
-  // Tall: enough room for menu + logo + anime stacked
-  if (rows >= MENU_HEIGHT + LOGO_HEIGHT + ANIME_HEIGHT + 2 && cols >= ANIME_WIDTH) {
+  // Tall: enough room for menu + logo + panels stacked
+  if (rows >= MENU_HEIGHT + LOGO_HEIGHT + PANEL_HEIGHT + 2 && cols >= PANEL_WIDTH) {
     return "tall";
   }
 
@@ -252,6 +261,111 @@ const menuItems: MenuItem[] = [
 
 let showHelp = false;
 
+// Refresh cached data from files
+async function refreshData(): Promise<void> {
+  try {
+    cachedHistory = await getRecentHistory(cwd, 10);
+  } catch {
+    cachedHistory = [];
+  }
+
+  try {
+    const project = await loadProject(cwd);
+    cachedGoals = project.goals;
+  } catch {
+    cachedGoals = [];
+  }
+}
+
+// Format timestamp for display
+function formatTime(timestamp: string): string {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+
+  if (diffMins < 1) return "just now";
+  if (diffMins < 60) return `${diffMins}m ago`;
+
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `${diffHours}h ago`;
+
+  return date.toLocaleDateString();
+}
+
+// Get action icon
+function getActionIcon(action: string): string {
+  switch (action) {
+    case "simplify": return `${GREEN}↓${RESET}`;
+    case "fix": return `${YELLOW}⚡${RESET}`;
+    case "update_docs": return `${BLUE}📝${RESET}`;
+    case "apply_rule": return `${CYAN}◆${RESET}`;
+    case "suggest": return `${MAGENTA}💡${RESET}`;
+    default: return `${DIM}•${RESET}`;
+  }
+}
+
+// Render Activity panel
+function renderActivityPanel(width: number, height: number): string[] {
+  const lines: string[] = [];
+  lines.push(`${BOLD}${CYAN}Activity${RESET}`);
+  lines.push(`${DIM}${"─".repeat(Math.min(width - 2, 40))}${RESET}`);
+
+  if (cachedHistory.length === 0) {
+    lines.push(`${DIM}No recent activity${RESET}`);
+    lines.push(`${DIM}Start the daemon to${RESET}`);
+    lines.push(`${DIM}see what crit is doing${RESET}`);
+  } else {
+    const maxEntries = Math.min(cachedHistory.length, height - 3);
+    const recentEntries = cachedHistory.slice(-maxEntries).reverse();
+
+    for (const entry of recentEntries) {
+      const icon = getActionIcon(entry.action);
+      const time = formatTime(entry.timestamp);
+      const desc = entry.description.length > width - 15
+        ? entry.description.slice(0, width - 18) + "..."
+        : entry.description;
+      lines.push(`${icon} ${desc}`);
+      lines.push(`  ${DIM}${time}${RESET}`);
+    }
+  }
+
+  return lines;
+}
+
+// Render Goals panel
+function renderGoalsPanel(width: number, height: number): string[] {
+  const lines: string[] = [];
+  lines.push(`${BOLD}${GREEN}Goals${RESET}`);
+  lines.push(`${DIM}${"─".repeat(Math.min(width - 2, 40))}${RESET}`);
+
+  if (cachedGoals.length === 0) {
+    lines.push(`${DIM}No goals defined${RESET}`);
+    lines.push(`${DIM}Edit project.md to${RESET}`);
+    lines.push(`${DIM}add your goals${RESET}`);
+  } else {
+    const maxGoals = Math.min(cachedGoals.length, height - 3);
+
+    for (let i = 0; i < maxGoals; i++) {
+      const goal = cachedGoals[i];
+      const icon = goal.status === "done" ? `${GREEN}✓${RESET}` :
+                   goal.status === "working" ? `${YELLOW}→${RESET}` :
+                   goal.status === "partial" ? `${YELLOW}~${RESET}` :
+                   goal.status === "broken" ? `${YELLOW}✗${RESET}` : `${DIM}○${RESET}`;
+      const text = goal.text.length > width - 5
+        ? goal.text.slice(0, width - 8) + "..."
+        : goal.text;
+      lines.push(`${icon} ${text}`);
+    }
+
+    if (cachedGoals.length > maxGoals) {
+      lines.push(`${DIM}+${cachedGoals.length - maxGoals} more...${RESET}`);
+    }
+  }
+
+  return lines;
+}
+
 function renderMenu(): string[] {
   const lines: string[] = [];
   lines.push(`${BOLD}${BLUE}crit${RESET} ${DIM}v0.1.0${RESET}`);
@@ -325,11 +439,22 @@ function render(): void {
   const leftContent = [...LOGO, "", ...menuLines];
 
   if (layout === "wide") {
-    // Logo + menu top-left, anime on right side vertically centered
-    const animeVerticalPad = Math.max(0, Math.floor((rows - ANIME.length) / 2));
-    const animeHorizontalPad = Math.max(MENU_WIDTH + 4, cols - ANIME_WIDTH - 2);
+    // Logo + menu top-left, Activity + Goals panels on the right
+    const panelWidth = Math.min(50, cols - MENU_WIDTH - 8);
+    const panelStartCol = MENU_WIDTH + 6;
 
-    const totalLines = Math.max(leftContent.length, animeVerticalPad + ANIME.length);
+    // Calculate panel heights - split available space
+    const availableHeight = rows - 2;
+    const activityHeight = Math.floor(availableHeight * 0.6);
+    const goalsHeight = availableHeight - activityHeight - 1;
+
+    const activityLines = renderActivityPanel(panelWidth, activityHeight);
+    const goalsLines = renderGoalsPanel(panelWidth, goalsHeight);
+
+    // Combine panels with a gap
+    const rightContent = [...activityLines, "", ...goalsLines];
+
+    const totalLines = Math.max(leftContent.length, rightContent.length);
 
     for (let i = 0; i < totalLines; i++) {
       let line = "";
@@ -339,24 +464,48 @@ function render(): void {
         line = leftContent[i];
       }
 
-      // Anime on right, vertically centered
+      // Right content (panels)
       const currentLen = stripAnsi(line).length;
-      if (i >= animeVerticalPad && i < animeVerticalPad + ANIME.length) {
-        const animeLine = ANIME[i - animeVerticalPad];
-        line += " ".repeat(Math.max(1, animeHorizontalPad - currentLen)) + animeLine;
+      if (i < rightContent.length) {
+        const rightLine = rightContent[i];
+        line += " ".repeat(Math.max(1, panelStartCol - currentLen)) + rightLine;
       }
 
       console.log(line);
     }
   } else if (layout === "tall") {
-    // Logo + menu top-left, then anime centered below
+    // Logo + menu top-left, then panels below
     for (const line of leftContent) {
       console.log(line);
     }
     console.log("");
 
-    for (const line of ANIME) {
-      console.log(centerLine(line, cols));
+    // Show panels side by side if room, or stacked if not
+    const panelWidth = Math.min(45, Math.floor((cols - 4) / 2));
+    const remainingHeight = rows - leftContent.length - 2;
+    const panelHeight = Math.min(remainingHeight, 10);
+
+    const activityLines = renderActivityPanel(panelWidth, panelHeight);
+    const goalsLines = renderGoalsPanel(panelWidth, panelHeight);
+
+    if (cols >= panelWidth * 2 + 6) {
+      // Side by side
+      const maxLines = Math.max(activityLines.length, goalsLines.length);
+      for (let i = 0; i < maxLines; i++) {
+        const left = i < activityLines.length ? activityLines[i] : "";
+        const right = i < goalsLines.length ? goalsLines[i] : "";
+        const leftPadded = left + " ".repeat(Math.max(1, panelWidth - stripAnsi(left).length + 2));
+        console.log(leftPadded + right);
+      }
+    } else {
+      // Stacked
+      for (const line of activityLines) {
+        console.log(line);
+      }
+      console.log("");
+      for (const line of goalsLines) {
+        console.log(line);
+      }
     }
   } else if (layout === "logo-only") {
     // Just logo + menu, top-left
@@ -376,8 +525,8 @@ function stripAnsi(str: string): string {
   return str.replace(/\x1b\[[0-9;]*m/g, "");
 }
 
-function handleKey(key: Buffer): void {
-  const str = key.toString();
+function handleKey(key: Buffer | string): void {
+  const str = typeof key === "string" ? key : key.toString();
 
   // If help is showing, any key closes it
   if (showHelp) {
@@ -416,6 +565,62 @@ function handleKey(key: Buffer): void {
   }
 }
 
+// Set up file watchers for live updates
+function setupWatchers(): void {
+  const historyPath = join(critDir, "state", "history.jsonl");
+  const projectPath = join(critDir, "project.md");
+
+  // Watch history file
+  if (existsSync(historyPath)) {
+    try {
+      historyWatcher = watch(historyPath, async () => {
+        await refreshData();
+        if (!inSubmenu && !showHelp) render();
+      });
+    } catch {
+      // Ignore watch errors
+    }
+  }
+
+  // Watch project file
+  if (existsSync(projectPath)) {
+    try {
+      projectWatcher = watch(projectPath, async () => {
+        await refreshData();
+        if (!inSubmenu && !showHelp) render();
+      });
+    } catch {
+      // Ignore watch errors
+    }
+  }
+
+  // Also watch the state directory in case history file is created
+  const stateDir = join(critDir, "state");
+  if (existsSync(stateDir)) {
+    try {
+      watch(stateDir, async (_, filename) => {
+        if (filename === "history.jsonl") {
+          await refreshData();
+          if (!inSubmenu && !showHelp) render();
+        }
+      });
+    } catch {
+      // Ignore watch errors
+    }
+  }
+}
+
+function cleanupWatchers(): void {
+  if (historyWatcher) {
+    historyWatcher.close();
+    historyWatcher = null;
+  }
+  if (projectWatcher) {
+    projectWatcher.close();
+    projectWatcher = null;
+  }
+}
+
 export async function tui(): Promise<void> {
   if (!process.stdin.isTTY) {
     console.log("TUI requires an interactive terminal.");
@@ -423,9 +628,15 @@ export async function tui(): Promise<void> {
     process.exit(1);
   }
 
+  // Load initial data
+  await refreshData();
+
   process.stdin.setRawMode(true);
   process.stdin.resume();
   process.stdout.write(HIDE_CURSOR);
+
+  // Set up file watchers for live updates
+  setupWatchers();
 
   // Re-render on terminal resize
   process.stdout.on("resize", () => {
@@ -454,6 +665,7 @@ export async function tui(): Promise<void> {
 }
 
 function cleanup(): void {
+  cleanupWatchers();
   process.stdout.write(SHOW_CURSOR);
   process.stdout.write(CLEAR);
   process.stdin.setRawMode(false);
