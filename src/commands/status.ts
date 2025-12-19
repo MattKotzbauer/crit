@@ -1,40 +1,51 @@
-import { getCritDir, getCritPath, paths, critExists } from "../lib/paths";
-import { loadConfig } from "../lib/config";
+import { existsSync } from "fs";
+import { join } from "path";
+import { loadProject, getGoalsSummary } from "../lib/project";
 
 export async function status() {
-  const critDir = getCritDir();
+  const cwd = process.cwd();
+  const critDir = join(cwd, ".crit");
+  const projectFile = join(critDir, "project.md");
+  const pidFile = join(critDir, "daemon.pid");
 
-  if (!critExists()) {
-    console.log("crit is not initialized. Run 'crit init' first.");
+  if (!existsSync(critDir)) {
+    console.log("crit is not initialized. Run 'crit start' first.");
     return;
   }
 
-  const config = await loadConfig();
-
   console.log("crit status");
   console.log("───────────");
-  console.log(`Directory: ${critDir}`);
-  console.log(`Version: ${config?.version ?? "unknown"}`);
 
-  // Check for rules
-  const rulesFile = Bun.file(getCritPath(paths.rules));
-  if (await rulesFile.exists()) {
-    const rulesContent = await rulesFile.text();
-    const lineCount = rulesContent.split("\n").length;
-    console.log(`Rules: ${lineCount} lines`);
+  // Daemon status
+  const daemonRunning = existsSync(pidFile);
+  console.log(`Daemon: ${daemonRunning ? "running" : "stopped"}`);
+
+  // Project status
+  if (!existsSync(projectFile)) {
+    console.log("\nNo project.md found. Run 'crit start' to create one.");
+    return;
   }
 
-  // Check for context files
-  const contextDir = getCritPath(paths.context);
-  console.log(`Context: ${contextDir}`);
+  const project = await loadProject(cwd);
+  const summary = await getGoalsSummary(cwd);
 
-  // Check session state
-  const sessionFile = Bun.file(getCritPath(paths.stateSession));
-  if (await sessionFile.exists()) {
-    const session = await sessionFile.json();
-    const keys = Object.keys(session);
-    console.log(`Session: ${keys.length === 0 ? "empty" : `${keys.length} keys`}`);
+  console.log(`\nGoals: ${summary.total}`);
+  if (summary.total > 0) {
+    console.log(`  ✓ Done:    ${summary.done}`);
+    console.log(`  → Working: ${summary.working}`);
+    console.log(`  ○ Planned: ${summary.planned}`);
+    if (summary.broken > 0) {
+      console.log(`  ✗ Broken:  ${summary.broken}`);
+    }
   }
 
-  console.log("\nStatus: Ready");
+  console.log(`\nRules: ${project.rules.length}`);
+  for (const rule of project.rules.slice(0, 3)) {
+    console.log(`  - ${rule.text}`);
+  }
+  if (project.rules.length > 3) {
+    console.log(`  ... and ${project.rules.length - 3} more`);
+  }
+
+  console.log("\nEdit .crit/project.md to update goals and rules.");
 }

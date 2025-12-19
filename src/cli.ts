@@ -1,16 +1,12 @@
 #!/usr/bin/env bun
 
 import { Command } from "commander";
-import { init } from "./commands/init";
+import { start } from "./commands/start";
+import { stop } from "./commands/stop";
 import { status } from "./commands/status";
-import { rules } from "./commands/rules";
-import { context } from "./commands/context";
-import { run } from "./commands/run";
-import { suggest } from "./commands/suggest";
 import { clean } from "./commands/clean";
 import { history } from "./commands/history";
 import { test } from "./commands/test";
-import { deliverables } from "./commands/deliverables";
 import {
   hookPreTool,
   hookPostTool,
@@ -23,43 +19,33 @@ const program = new Command();
 
 program
   .name("crit")
-  .description("Circular AI development tool")
+  .description(
+    `Circular AI development tool
+
+Quick Start:
+  crit start          Initialize and run crit
+  crit stop           Stop the daemon
+
+Edit .crit/project.md to define your goals and rules.`
+  )
   .version("0.1.0");
 
+// Primary commands
 program
-  .command("init")
-  .description("Initialize crit in the current directory")
-  .action(init);
+  .command("start")
+  .description("Initialize (if needed) and run crit")
+  .action(start);
 
+program
+  .command("stop")
+  .description("Stop the crit daemon")
+  .action(stop);
+
+// Inspection commands
 program
   .command("status")
-  .description("Show crit status")
+  .description("Show project status and goals")
   .action(status);
-
-program
-  .command("rules")
-  .description("View rules")
-  .action(rules);
-
-program
-  .command("context")
-  .description("View context files")
-  .action(context);
-
-program
-  .command("run")
-  .description("Start the crit daemon")
-  .action(run);
-
-program
-  .command("suggest")
-  .description("Get AI-powered suggestions")
-  .action(suggest);
-
-program
-  .command("clean")
-  .description("Clean up temporary files and state")
-  .action(clean);
 
 program
   .command("history")
@@ -72,39 +58,40 @@ program
   .option("--verify", "Run tests and verify they pass")
   .action(test);
 
+// Utility commands
 program
-  .command("deliverables [subcommand]")
-  .description("Track what features work (summary|list|working|broken|untested)")
-  .action(deliverables);
+  .command("clean")
+  .description("Clean up temporary files and state")
+  .action(clean);
 
-// Hook subcommands
+// Hook subcommands (for advanced use / debugging)
 const hookCmd = program
   .command("hook")
-  .description("Claude Code hook integration");
-
-hookCmd
-  .command("pre-tool")
-  .description("Handle pre-tool hook (reads JSON from stdin)")
-  .action(hookPreTool);
-
-hookCmd
-  .command("post-tool")
-  .description("Handle post-tool hook (reads JSON from stdin)")
-  .action(hookPostTool);
+  .description("Claude Code hook management");
 
 hookCmd
   .command("install")
-  .description("Install crit hooks to .claude/settings.json")
+  .description("Install crit hooks to Claude Code")
   .action(hookInstall);
 
 hookCmd
   .command("remove")
-  .description("Remove crit hooks from .claude/settings.json")
+  .description("Remove crit hooks from Claude Code")
   .action(hookRemove);
 
 hookCmd
   .command("status")
-  .description("Check if crit hooks are installed")
+  .description("Check if hooks are installed")
   .action(hookStatus);
+
+hookCmd
+  .command("pre-tool")
+  .description("Handle pre-tool hook (internal)")
+  .action(hookPreTool);
+
+hookCmd
+  .command("post-tool")
+  .description("Handle post-tool hook (internal)")
+  .action(hookPostTool);
 
 program.parse();
