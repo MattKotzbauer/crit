@@ -25,11 +25,11 @@ const MAGENTA = `${ESC}[35m`;
 
 // ASCII Art
 const LOGO = [
-  `${MAGENTA}          __  __   ${RESET}`,
-  `${MAGENTA}___________│__│╱  │_${RESET}`,
-  `${MAGENTA}╱ ___╲_  __ ╲  ╲   __╲${RESET}`,
-  `${MAGENTA}╲  ╲___│  │ ╲╱  ││  │${RESET}`,
-  `${MAGENTA} ╲___  >__│  │__││__│${RESET}`,
+  `${MAGENTA}              __  __   ${RESET}`,
+  `${MAGENTA}  ___________│__│╱  │_ ${RESET}`,
+  `${MAGENTA}_╱ ___╲_  __ ╲  ╲   __╲${RESET}`,
+  `${MAGENTA}╲  ╲___│  │ ╲╱  ││  │  ${RESET}`,
+  `${MAGENTA} ╲___  >__│  │__││__│  ${RESET}`,
   `${MAGENTA}     ╲╱${RESET}`,
 ];
 

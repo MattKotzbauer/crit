@@ -20,5 +20,29 @@
       "Bash(tree:*)",
       "mcp__orchestra-mcp"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "crit hook pre-tool"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "crit hook post-tool"
+          }
+        ]
+      }
+    ]
   }
 }
