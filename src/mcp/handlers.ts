@@ -23,6 +23,27 @@ import {
   type TestRequirement,
   type TestResult,
 } from "../lib/testing";
+import {
+  loadPreferences,
+  parsePreferences,
+  type ParsedPreference,
+} from "../lib/criticism/preferences";
+import {
+  loadStatus,
+  parseStatus,
+  addDeliverable,
+  markDeliverableDone,
+  addInsight,
+  setFocus,
+  type ProjectStatus,
+} from "../lib/criticism/status";
+import {
+  addCriticism,
+  getPendingCriticisms,
+  getCriticismsByCategory,
+  generateCriticismId,
+} from "../lib/criticism/store";
+import type { Criticism, CriticismCategory } from "../lib/criticism/types";
 
 // Get project path from env or cwd
 function getProjectPath(): string {
@@ -475,5 +496,155 @@ export async function handleCheckTests(
     status,
     requirements,
     testResult,
+  };
+}
+
+// ============================================================
+// Criticism system handlers
+// ============================================================
+
+export type GetPreferencesResult = {
+  preferences: ParsedPreference[];
+  raw: string;
+};
+
+export async function handleGetPreferences(): Promise<GetPreferencesResult> {
+  const projectPath = getProjectPath();
+  const raw = loadPreferences(projectPath);
+  const preferences = parsePreferences(projectPath);
+
+  return {
+    preferences,
+    raw,
+  };
+}
+
+export type GetStatusResult = {
+  status: ProjectStatus;
+  raw: string;
+};
+
+export async function handleGetStatus(): Promise<GetStatusResult> {
+  const projectPath = getProjectPath();
+  const raw = loadStatus(projectPath);
+  const status = parseStatus(projectPath);
+
+  return {
+    status,
+    raw,
+  };
+}
+
+export type AddCriticismInput = {
+  category: CriticismCategory;
+  subject: string;
+  description: string;
+  files: string[];
+  location?: string;
+  severity: "low" | "medium" | "high";
+  diff?: string;
+};
+
+export type AddCriticismResult = {
+  id: string;
+  success: boolean;
+};
+
+export async function handleAddCriticism(
+  input: AddCriticismInput
+): Promise<AddCriticismResult> {
+  const projectPath = getProjectPath();
+
+  const id = generateCriticismId(input.category, input.subject, input.files);
+
+  const criticism: Criticism = {
+    id,
+    category: input.category,
+    subject: input.subject,
+    description: input.description,
+    files: input.files,
+    location: input.location,
+    severity: input.severity,
+    status: "pending",
+    diff: input.diff,
+    createdAt: new Date().toISOString(),
+  };
+
+  addCriticism(projectPath, criticism);
+
+  return {
+    id,
+    success: true,
+  };
+}
+
+export type GetCriticismsInput = {
+  category?: CriticismCategory;
+};
+
+export type GetCriticismsResult = {
+  criticisms: Criticism[];
+  count: number;
+};
+
+export async function handleGetCriticisms(
+  input: GetCriticismsInput
+): Promise<GetCriticismsResult> {
+  const projectPath = getProjectPath();
+
+  let criticisms: Criticism[];
+  if (input.category) {
+    criticisms = getCriticismsByCategory(projectPath, input.category);
+  } else {
+    criticisms = getPendingCriticisms(projectPath);
+  }
+
+  return {
+    criticisms,
+    count: criticisms.length,
+  };
+}
+
+export type UpdateStatusInput = {
+  addDeliverable?: string;
+  markDone?: string;
+  addInsight?: string;
+  setFocus?: string;
+};
+
+export type UpdateStatusResult = {
+  success: boolean;
+  updated: string[];
+};
+
+export async function handleUpdateStatus(
+  input: UpdateStatusInput
+): Promise<UpdateStatusResult> {
+  const projectPath = getProjectPath();
+  const updated: string[] = [];
+
+  if (input.addDeliverable) {
+    addDeliverable(projectPath, input.addDeliverable);
+    updated.push(`Added deliverable: ${input.addDeliverable}`);
+  }
+
+  if (input.markDone) {
+    markDeliverableDone(projectPath, input.markDone);
+    updated.push(`Marked done: ${input.markDone}`);
+  }
+
+  if (input.addInsight) {
+    addInsight(projectPath, input.addInsight);
+    updated.push(`Added insight: ${input.addInsight}`);
+  }
+
+  if (input.setFocus) {
+    setFocus(projectPath, input.setFocus);
+    updated.push(`Set focus: ${input.setFocus}`);
+  }
+
+  return {
+    success: updated.length > 0,
+    updated,
   };
 }

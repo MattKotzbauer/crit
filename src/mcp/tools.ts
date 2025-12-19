@@ -175,4 +175,106 @@ export const tools: ToolDefinition[] = [
       },
     },
   },
+  // Criticism system tools
+  {
+    name: "crit_get_preferences",
+    description:
+      "Get user preferences for code changes. Returns patterns that were accepted or rejected, with user reasoning. Use this before suggesting changes to avoid repeating rejected patterns.",
+    inputSchema: {
+      type: "object",
+      properties: {},
+    },
+  },
+  {
+    name: "crit_get_status",
+    description:
+      "Get current project status including deliverables, insights, and focus area. Use this to understand project context.",
+    inputSchema: {
+      type: "object",
+      properties: {},
+    },
+  },
+  {
+    name: "crit_add_criticism",
+    description:
+      "Add a criticism (suggested improvement) for user review. The user will see this in the TUI and can accept/reject it. Categories: ELIM (remove unused code), SIMPLIFY (better patterns), TEST (add test coverage).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        category: {
+          type: "string",
+          enum: ["ELIM", "SIMPLIFY", "TEST"],
+          description: "Type of criticism",
+        },
+        subject: {
+          type: "string",
+          description: "Short label for the issue (e.g., 'unused helper', 'complex parser')",
+        },
+        description: {
+          type: "string",
+          description: "Full explanation of the issue and why it should be addressed",
+        },
+        files: {
+          type: "array",
+          items: { type: "string" },
+          description: "List of files affected",
+        },
+        location: {
+          type: "string",
+          description: "Specific location (e.g., 'src/lib/utils.ts:42')",
+        },
+        severity: {
+          type: "string",
+          enum: ["low", "medium", "high"],
+          description: "How important is this issue",
+        },
+        diff: {
+          type: "string",
+          description: "Optional: proposed change in unified diff format",
+        },
+      },
+      required: ["category", "subject", "description", "files", "severity"],
+    },
+  },
+  {
+    name: "crit_get_criticisms",
+    description:
+      "Get pending criticisms awaiting user review. Returns list of suggested improvements.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        category: {
+          type: "string",
+          enum: ["ELIM", "SIMPLIFY", "TEST"],
+          description: "Optional: filter by category",
+        },
+      },
+    },
+  },
+  {
+    name: "crit_update_status",
+    description:
+      "Update project status. Use to add deliverables, insights, or change focus.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        addDeliverable: {
+          type: "string",
+          description: "Add a new deliverable",
+        },
+        markDone: {
+          type: "string",
+          description: "Mark a deliverable as done",
+        },
+        addInsight: {
+          type: "string",
+          description: "Add a project insight",
+        },
+        setFocus: {
+          type: "string",
+          description: "Set current focus area",
+        },
+      },
+    },
+  },
 ];

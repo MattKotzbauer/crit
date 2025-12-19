@@ -7,6 +7,7 @@ import {
 } from "./processor";
 import { reportActions } from "./reporter";
 import { appendHistory } from "../lib/state/history";
+import { analyzeChanges } from "./analyzer";
 
 export interface DaemonHandle {
   stop: () => void;
@@ -17,10 +18,14 @@ export interface DaemonOptions {
   onEvent?: (event: WatchEvent) => void;
   /** Callback when actions are processed */
   onActions?: (actions: Array<{ action: string; details: string }>) => void;
+  /** Callback when criticisms are generated */
+  onCriticisms?: (count: number) => void;
   /** Whether to write to history (default: true) */
   writeHistory?: boolean;
   /** Whether to write reports (default: true) */
   writeReports?: boolean;
+  /** Whether to analyze for criticisms (default: true) */
+  analyzeCriticisms?: boolean;
 }
 
 /**
@@ -33,8 +38,10 @@ export async function startDaemon(
   const {
     onEvent,
     onActions,
+    onCriticisms,
     writeHistory = true,
     writeReports = true,
+    analyzeCriticisms = true,
   } = options;
 
   // Set up processing callback for debounced events
@@ -71,6 +78,18 @@ export async function startDaemon(
             });
           }
         }
+      }
+    }
+
+    // Analyze for criticisms
+    if (analyzeCriticisms) {
+      try {
+        const analysisResult = await analyzeChanges(projectPath, events);
+        if (analysisResult.criticisms.length > 0 && onCriticisms) {
+          onCriticisms(analysisResult.criticisms.length);
+        }
+      } catch {
+        // Ignore analysis errors
       }
     }
   });

@@ -1,0 +1,178 @@
+[
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/lib/criticism/store.ts",
+    "files": [
+      "/home/matt/thing/crit/src/lib/criticism/store.ts"
+    ],
+    "id": "df1375b4-b60e-4137-ab56-2fe6a28eb92d",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:54:06.765Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/lib/criticism/preferences.ts",
+    "files": [
+      "/home/matt/thing/crit/src/lib/criticism/preferences.ts"
+    ],
+    "id": "d21d95a7-a6e7-4796-8747-32ac352a5b8d",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:54:56.284Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/lib/criticism/status.ts",
+    "files": [
+      "/home/matt/thing/crit/src/lib/criticism/status.ts"
+    ],
+    "id": "2a459ae5-71f7-4aff-91fc-b569a04d4ec8",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:55:25.041Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/lib/criticism/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/lib/criticism/index.ts"
+    ],
+    "id": "d15e3ed1-1ad6-49b5-9271-6df8ded3e83f",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:55:36.733Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/issues.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/issues.ts"
+    ],
+    "id": "c0e8675f-ca3c-4d87-82eb-9a93f4def766",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:57:25.333Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "e70d3d21-ff22-4f93-9175-6a9f9ca00782",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:57:37.765Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/tui/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/tui/index.ts"
+    ],
+    "id": "7118f88b-a527-4d44-ac35-41f3fdeeaa8d",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:58:00.970Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/mcp/tools.ts",
+    "files": [
+      "/home/matt/thing/crit/src/mcp/tools.ts"
+    ],
+    "id": "b2980eb8-fe4d-4a41-83a2-8a917c3c8ba8",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:59:22.265Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/mcp/handlers.ts",
+    "files": [
+      "/home/matt/thing/crit/src/mcp/handlers.ts"
+    ],
+    "id": "db5e8c7c-2776-4639-9a58-d9cd055c652c",
+    "status": "pending",
+    "createdAt": "2025-12-19T17:59:44.906Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/mcp/handlers.ts",
+    "files": [
+      "/home/matt/thing/crit/src/mcp/handlers.ts"
+    ],
+    "id": "39a4abd4-cd96-4885-979c-7563a8088a7b",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:00:17.662Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/mcp/server.ts",
+    "files": [
+      "/home/matt/thing/crit/src/mcp/server.ts"
+    ],
+    "id": "c2a9bdef-6e73-4b38-bf0c-2c76252e59ce",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:00:53.339Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/mcp/server.ts",
+    "files": [
+      "/home/matt/thing/crit/src/mcp/server.ts"
+    ],
+    "id": "e0af3fec-4abc-4826-91d8-a8006040f493",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:01:09.938Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/daemon/analyzer.ts",
+    "files": [
+      "/home/matt/thing/crit/src/daemon/analyzer.ts"
+    ],
+    "id": "5011aa5e-540f-4940-bb02-2c899327d91c",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:02:41.906Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/daemon/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/daemon/index.ts"
+    ],
+    "id": "e4af47c3-e5b5-4017-8f8b-9a5039dcab69",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:02:51.502Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/daemon/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/daemon/index.ts"
+    ],
+    "id": "58cc535a-d229-45c4-a0db-12c2f0d6ff73",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:03:08.058Z"
+  },
+  {
+    "priority": "medium",
+    "type": "suggest",
+    "description": "Consider testing changes to /home/matt/thing/crit/src/daemon/index.ts",
+    "files": [
+      "/home/matt/thing/crit/src/daemon/index.ts"
+    ],
+    "id": "bc4c530a-0d4b-4887-8dc8-b381976a2c45",
+    "status": "pending",
+    "createdAt": "2025-12-19T18:03:35.465Z"
+  }
+]

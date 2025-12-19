@@ -26,6 +26,11 @@ import {
   handleCheckBloat,
   handleCheckProposedCode,
   handleCheckTests,
+  handleGetPreferences,
+  handleGetStatus,
+  handleAddCriticism,
+  handleGetCriticisms,
+  handleUpdateStatus,
   type CheckRulesInput,
   type LogActionInput,
   type AddInitiativeInput,
@@ -34,6 +39,9 @@ import {
   type CheckBloatInput,
   type CheckProposedCodeInput,
   type CheckTestsInput,
+  type AddCriticismInput,
+  type GetCriticismsInput,
+  type UpdateStatusInput,
 } from "./handlers";
 
 // Create server
@@ -187,6 +195,72 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "crit_check_tests": {
         const input = (args || {}) as unknown as CheckTestsInput;
         const result = await handleCheckTests(input);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_get_preferences": {
+        const result = await handleGetPreferences();
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_get_status": {
+        const result = await handleGetStatus();
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_add_criticism": {
+        const input = args as unknown as AddCriticismInput;
+        if (!input.category || !input.subject || !input.description || !input.files || !input.severity) {
+          throw new Error("category, subject, description, files, and severity are required");
+        }
+        const result = await handleAddCriticism(input);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_get_criticisms": {
+        const input = (args || {}) as unknown as GetCriticismsInput;
+        const result = await handleGetCriticisms(input);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_update_status": {
+        const input = (args || {}) as unknown as UpdateStatusInput;
+        const result = await handleUpdateStatus(input);
         return {
           content: [
             {

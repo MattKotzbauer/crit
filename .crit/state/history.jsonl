@@ -43,3 +43,42 @@
 {"action":"update_docs","description":"Documentation updated: .claude/orchestra.md","files":[".claude/orchestra.md"],"timestamp":"2025-12-19T17:30:27.002Z"}
 {"action":"update_docs","description":"Documentation updated: .claude/orchestra.md","files":[".claude/orchestra.md"],"timestamp":"2025-12-19T17:30:27.003Z"}
 {"action":"update_docs","description":"Documentation updated: .claude/orchestra.md","files":[".claude/orchestra.md"],"timestamp":"2025-12-19T17:30:27.003Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/.orchestra/designer.md","files":["/home/matt/thing/crit/.orchestra/designer.md"],"timestamp":"2025-12-19T17:44:06.340Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/.orchestra/designer.md","files":["/home/matt/thing/crit/.orchestra/designer.md"],"timestamp":"2025-12-19T17:53:02.634Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/lib/criticism/types.ts","files":["/home/matt/thing/crit/src/lib/criticism/types.ts"],"timestamp":"2025-12-19T17:53:42.653Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/lib/criticism/store.ts","files":["/home/matt/thing/crit/src/lib/criticism/store.ts"],"timestamp":"2025-12-19T17:54:06.764Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/lib/criticism/preferences.ts","files":["/home/matt/thing/crit/src/lib/criticism/preferences.ts"],"timestamp":"2025-12-19T17:54:56.282Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/lib/criticism/status.ts","files":["/home/matt/thing/crit/src/lib/criticism/status.ts"],"timestamp":"2025-12-19T17:55:25.039Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/lib/criticism/index.ts","files":["/home/matt/thing/crit/src/lib/criticism/index.ts"],"timestamp":"2025-12-19T17:55:36.731Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/tui/issues.ts","files":["/home/matt/thing/crit/src/tui/issues.ts"],"timestamp":"2025-12-19T17:57:25.332Z"}
+{"action":"suggest","description":"New source file: src/tui/issues.ts","files":["src/tui/issues.ts"],"timestamp":"2025-12-19T17:57:25.337Z"}
+{"action":"suggest","description":"New source file: src/tui/issues.ts","files":["src/tui/issues.ts"],"timestamp":"2025-12-19T17:57:25.338Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T17:57:37.764Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T17:57:37.774Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T17:57:37.775Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/tui/index.ts","files":["/home/matt/thing/crit/src/tui/index.ts"],"timestamp":"2025-12-19T17:58:00.967Z"}
+{"action":"apply_rule","description":"Source file modified: src/tui/index.ts","files":["src/tui/index.ts"],"timestamp":"2025-12-19T17:58:00.982Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/mcp/tools.ts","files":["/home/matt/thing/crit/src/mcp/tools.ts"],"timestamp":"2025-12-19T17:59:22.264Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/tools.ts","files":["src/mcp/tools.ts"],"timestamp":"2025-12-19T17:59:22.267Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/tools.ts","files":["src/mcp/tools.ts"],"timestamp":"2025-12-19T17:59:22.269Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/handlers.ts","files":["src/mcp/handlers.ts"],"timestamp":"2025-12-19T17:59:44.889Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/handlers.ts","files":["src/mcp/handlers.ts"],"timestamp":"2025-12-19T17:59:44.890Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/mcp/handlers.ts","files":["/home/matt/thing/crit/src/mcp/handlers.ts"],"timestamp":"2025-12-19T17:59:44.903Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/mcp/handlers.ts","files":["/home/matt/thing/crit/src/mcp/handlers.ts"],"timestamp":"2025-12-19T18:00:17.661Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/handlers.ts","files":["src/mcp/handlers.ts"],"timestamp":"2025-12-19T18:00:17.680Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/handlers.ts","files":["src/mcp/handlers.ts"],"timestamp":"2025-12-19T18:00:17.680Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/server.ts","files":["src/mcp/server.ts"],"timestamp":"2025-12-19T18:00:53.336Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/server.ts","files":["src/mcp/server.ts"],"timestamp":"2025-12-19T18:00:53.337Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/mcp/server.ts","files":["/home/matt/thing/crit/src/mcp/server.ts"],"timestamp":"2025-12-19T18:00:53.338Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/mcp/server.ts","files":["/home/matt/thing/crit/src/mcp/server.ts"],"timestamp":"2025-12-19T18:01:09.936Z"}
+{"action":"apply_rule","description":"Source file modified: src/mcp/server.ts","files":["src/mcp/server.ts"],"timestamp":"2025-12-19T18:01:09.947Z"}
+{"action":"suggest","description":"New source file: src/daemon/analyzer.ts","files":["src/daemon/analyzer.ts"],"timestamp":"2025-12-19T18:02:41.893Z"}
+{"action":"update_docs","description":"Write: /home/matt/thing/crit/src/daemon/analyzer.ts","files":["/home/matt/thing/crit/src/daemon/analyzer.ts"],"timestamp":"2025-12-19T18:02:41.905Z"}
+{"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:02:51.488Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/daemon/index.ts","files":["/home/matt/thing/crit/src/daemon/index.ts"],"timestamp":"2025-12-19T18:02:51.501Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/daemon/index.ts","files":["/home/matt/thing/crit/src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:08.057Z"}
+{"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:08.072Z"}
+{"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:08.073Z"}
+{"action":"update_docs","description":"Edit: /home/matt/thing/crit/src/daemon/index.ts","files":["/home/matt/thing/crit/src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:35.464Z"}
+{"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:35.479Z"}
+{"action":"apply_rule","description":"Source file modified: src/daemon/index.ts","files":["src/daemon/index.ts"],"timestamp":"2025-12-19T18:03:35.479Z"}

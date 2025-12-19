@@ -1,0 +1,84 @@
+{
+  "criticisms": [
+    {
+      "category": "ELIM",
+      "subject": "unused formatDate helper",
+      "description": "The formatDate function in utils.ts is never called anywhere in the codebase. It was likely added for a feature that was never implemented or has since been removed.",
+      "files": [
+        "src/lib/utils.ts"
+      ],
+      "location": "src/lib/utils.ts:42",
+      "severity": "low",
+      "status": "pending",
+      "id": "elim-162e481d",
+      "createdAt": "2025-12-19T18:07:20.967Z"
+    },
+    {
+      "category": "ELIM",
+      "subject": "dead export in types",
+      "description": "The UserPreferences type is exported but never imported by any other file.",
+      "files": [
+        "src/types/index.ts"
+      ],
+      "location": "src/types/index.ts:15",
+      "severity": "low",
+      "status": "pending",
+      "id": "elim-f8b08f9",
+      "createdAt": "2025-12-19T18:07:20.968Z"
+    },
+    {
+      "category": "SIMPLIFY",
+      "subject": "complex nested auth checks",
+      "description": "The authentication logic in middleware.ts has deeply nested if statements that could be simplified using early returns and a guard clause pattern.",
+      "files": [
+        "src/middleware.ts"
+      ],
+      "location": "src/middleware.ts:28-52",
+      "severity": "medium",
+      "status": "pending",
+      "diff": "- if (user) {\n-   if (user.isActive) {\n-     if (hasPermission(user)) {\n+ if (!user) return unauthorized();\n+ if (!user.isActive) return forbidden();\n+ if (!hasPermission(user)) return forbidden();",
+      "id": "simplify-58fcbfaf",
+      "createdAt": "2025-12-19T18:07:20.968Z"
+    },
+    {
+      "category": "SIMPLIFY",
+      "subject": "redundant wrapper class",
+      "description": "ConfigManager is a class that wraps a simple object. It could be replaced with a plain object and helper functions.",
+      "files": [
+        "src/config/manager.ts"
+      ],
+      "location": "src/config/manager.ts",
+      "severity": "low",
+      "status": "pending",
+      "id": "simplify-59fa85c9",
+      "createdAt": "2025-12-19T18:07:20.968Z"
+    },
+    {
+      "category": "TEST",
+      "subject": "auth flow missing tests",
+      "description": "The authentication flow in auth.ts has no test coverage. This is a critical path that should have unit tests.",
+      "files": [
+        "src/auth.ts"
+      ],
+      "location": "src/auth.ts",
+      "severity": "high",
+      "status": "pending",
+      "id": "test-282202bf",
+      "createdAt": "2025-12-19T18:07:20.968Z"
+    },
+    {
+      "category": "TEST",
+      "subject": "payment validation untested",
+      "description": "Payment amount validation logic has edge cases (negative amounts, currency conversion) that are not covered by tests.",
+      "files": [
+        "src/payment/validate.ts"
+      ],
+      "location": "src/payment/validate.ts:18-45",
+      "severity": "high",
+      "status": "pending",
+      "id": "test-107174d2",
+      "createdAt": "2025-12-19T18:07:20.968Z"
+    }
+  ],
+  "lastAnalysis": "2025-12-19T18:04:20.833Z"
+}

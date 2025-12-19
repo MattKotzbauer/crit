@@ -11,6 +11,8 @@ import type { HistoryEntry } from "../lib/state/types";
 import { existsSync, watch, type FSWatcher } from "fs";
 import { join } from "path";
 import { spawn } from "child_process";
+import { showIssuesBrowser, addMockCriticisms } from "./issues";
+import { getPendingCriticisms } from "../lib/criticism/store";
 
 // Cached data for panels
 let cachedHistory: HistoryEntry[] = [];
@@ -251,11 +253,83 @@ async function editProject(): Promise<void> {
   render();
 }
 
+async function showIssues(): Promise<void> {
+  const pendingCount = getPendingCriticisms(cwd).length;
+
+  if (pendingCount === 0) {
+    inSubmenu = true;
+    process.stdout.write(CLEAR);
+    console.log(`${BOLD}${CYAN}Issues${RESET}\n`);
+    console.log(`${DIM}No pending issues.${RESET}`);
+    console.log(`${DIM}Run analysis to find potential improvements.${RESET}`);
+    console.log(`\n${DIM}Press any key to go back${RESET}`);
+
+    await new Promise<void>((resolve) => {
+      process.stdin.once("data", () => resolve());
+    });
+
+    inSubmenu = false;
+    render();
+    return;
+  }
+
+  // Temporarily exit TUI mode for issues browser
+  cleanupWatchers();
+  process.stdin.removeAllListeners("data");
+
+  await showIssuesBrowser({
+    projectRoot: cwd,
+    onAccept: async (criticism, reasoning) => {
+      // TODO: Apply diff if available
+      console.log(`Accepted: ${criticism.subject}`);
+    },
+    onReject: async (criticism, reasoning) => {
+      console.log(`Rejected: ${criticism.subject}`);
+    },
+    onExit: () => {
+      // Will be handled by promise resolution
+    },
+  });
+
+  // Restore main TUI
+  setupWatchers();
+  await refreshData();
+  process.stdin.on("data", async (key) => {
+    if (inSubmenu) return;
+    handleKey(key);
+    if (!running) {
+      cleanup();
+    }
+  });
+  render();
+}
+
+async function loadMockIssues(): Promise<void> {
+  inSubmenu = true;
+  process.stdout.write(CLEAR);
+  console.log(`${BOLD}${CYAN}Loading mock issues...${RESET}\n`);
+
+  addMockCriticisms(cwd);
+
+  console.log(`${GREEN}Added mock criticisms for testing.${RESET}`);
+  console.log(`${DIM}Select 'Issues' to browse them.${RESET}`);
+  console.log(`\n${DIM}Press any key to go back${RESET}`);
+
+  await new Promise<void>((resolve) => {
+    process.stdin.once("data", () => resolve());
+  });
+
+  inSubmenu = false;
+  render();
+}
+
 const menuItems: MenuItem[] = [
+  { label: "Issues", action: showIssues },
   { label: "Status", action: showStatus },
   { label: "Start", action: startDaemon },
   { label: "Stop", action: stopDaemon },
   { label: "Edit project.md", action: editProject },
+  { label: "[Dev] Load mock issues", action: loadMockIssues },
   { label: "Quit", action: () => { running = false; } },
 ];
 
