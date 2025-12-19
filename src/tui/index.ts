@@ -21,6 +21,40 @@ const GREEN = `${ESC}[32m`;
 const YELLOW = `${ESC}[33m`;
 const BLUE = `${ESC}[34m`;
 const CYAN = `${ESC}[36m`;
+const MAGENTA = `${ESC}[35m`;
+
+// ASCII Art
+const LOGO = [
+  `${MAGENTA}          __  __   ${RESET}`,
+  `${MAGENTA}___________│__│╱  │_${RESET}`,
+  `${MAGENTA}╱ ___╲_  __ ╲  ╲   __╲${RESET}`,
+  `${MAGENTA}╲  ╲___│  │ ╲╱  ││  │${RESET}`,
+  `${MAGENTA} ╲___  >__│  │__││__│${RESET}`,
+  `${MAGENTA}     ╲╱${RESET}`,
+];
+
+const EYES = [
+  `${DIM}⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀${RESET}`,
+  `${DIM}⢸⠉⣹⠋⠉⢉⡟⢩⢋⠋⣽⡻⠭⢽⢉⠯⠭⠭⠭⢽⡍⢹⡍⠙⣯⠉⠉⠉⠉⠉⣿⢫⠉⠉⠉⢉⡟⠉⢿⢹⠉⢉⣉⢿⡝⡉⢩⢿⣻⢍⠉⠉⠩⢹⣟⡏⠉⠹⡉⢻⡍⡇${RESET}`,
+  `${DIM}⢸⢠⢹⠀⠀⢸⠁⣼⠀⣼⡝⠀⠀⢸⠘⠀⠀⠀⠀⠈⢿⠀⡟⡄⠹⣣⠀⠀⠐⠀⢸⡘⡄⣤⠀⡼⠁⠀⢺⡘⠉⠀⠀⠀⠫⣪⣌⡌⢳⡻⣦⠀⠀⢃⡽⡼⡀⠀⢣⢸⠸⡇${RESET}`,
+  `${DIM}⢸⡸⢸⠀⠀⣿⠀⣇⢠⡿⠀⠀⠀⠸⡇⠀⠀⠀⠀⠀⠘⢇⠸⠘⡀⠻⣇⠀⠀⠄⠀⡇⢣⢛⠀⡇⠀⠀⣸⠇⠀⠀⠀⠀⠀⠘⠄⢻⡀⠻⣻⣧⠀⠀⠃⢧⡇⠀⢸⢸⡇⡇${RESET}`,
+  `${DIM}⢸⡇⢸⣠⠀⣿⢠⣿⡾⠁⠀⢀⡀⠤⢇⣀⣐⣀⠀⠤⢀⠈⠢⡡⡈⢦⡙⣷⡀⠀⠀⢿⠈⢻⣡⠁⠀⢀⠏⠀⠀⠀⢀⠀⠄⣀⣐⣀⣙⠢⡌⣻⣷⡀⢹⢸⡅⠀⢸⠸⡇⡇${RESET}`,
+  `${DIM}⢸⡇⢸⣟⠀⢿⢸⡿⠀⣀⣶⣷⣾⡿⠿⣿⣿⣿⣿⣿⣶⣬⡀⠐⠰⣄⠙⠪⣻⣦⡀⠘⣧⠀⠙⠄⠀⠀⠀⠀⠀⣨⣴⣾⣿⠿⣿⣿⣿⣿⣿⣶⣯⣿⣼⢼⡇⠀⢸⡇⡇⠇${RESET}`,
+  `${DIM}⢸⢧⠀⣿⡅⢸⣼⡷⣾⣿⡟⠋⣿⠓⢲⣿⣿⣿⡟⠙⣿⠛⢯⡳⡀⠈⠓⠄⡈⠚⠿⣧⣌⢧⠀⠀⠀⠀⠀⣠⣺⠟⢫⡿⠓⢺⣿⣿⣿⠏⠙⣏⠛⣿⣿⣾⡇⢀⡿⢠⠀⡇${RESET}`,
+  `${DIM}⢸⢸⠀⢹⣷⡀⢿⡁⠀⠻⣇⠀⣇⠀⠘⣿⣿⡿⠁⠐⣉⡀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠓⠳⠄⠀⠀⠀⠀⠋⠀⠘⡇⠀⠸⣿⣿⠟⠀⢈⣉⢠⡿⠁⣼⠁⣼⠃⣼⠀⡇${RESET}`,
+  `${DIM}⢸⠸⣀⠈⣯⢳⡘⣇⠀⠀⠈⡂⣜⣆⡀⠀⠀⢀⣀⡴⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢽⣆⣀⠀⠀⠀⣀⣜⠕⡊⠀⣸⠇⣼⡟⢠⠏⠀⡇${RESET}`,
+  `${DIM}⢸⠀⡟⠀⢸⡆⢹⡜⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠋⣾⡏⡇⡎⡇⠀⡇${RESET}`,
+  `${DIM}⢸⠀⢃⡆⠀⢿⡄⠑⢽⣄⠀⠀⠀⢀⠂⠠⢁⠈⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠄⡐⢀⠂⠀⠀⣠⣮⡟⢹⣯⣸⣱⠁⠀⡇${RESET}`,
+  `${DIM}⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁${RESET}`,
+];
+
+// Layout constants
+const MENU_WIDTH = 35;
+const MENU_HEIGHT = 10;
+const LOGO_WIDTH = 22;
+const LOGO_HEIGHT = 6;
+const EYES_WIDTH = 70;
+const EYES_HEIGHT = 12;
 
 interface MenuItem {
   label: string;
@@ -33,6 +67,37 @@ let inSubmenu = false;
 
 const cwd = process.cwd();
 const critDir = join(cwd, ".crit");
+
+function getTerminalSize(): { cols: number; rows: number } {
+  return {
+    cols: process.stdout.columns || 80,
+    rows: process.stdout.rows || 24,
+  };
+}
+
+type LayoutMode = "wide" | "tall" | "logo-only" | "minimal";
+
+function getLayoutMode(): LayoutMode {
+  const { cols, rows } = getTerminalSize();
+
+  // Wide: enough room for menu + eyes side by side
+  if (cols >= MENU_WIDTH + EYES_WIDTH + 5) {
+    return "wide";
+  }
+
+  // Tall: enough room for menu + logo + eyes stacked
+  if (rows >= MENU_HEIGHT + LOGO_HEIGHT + EYES_HEIGHT + 2 && cols >= EYES_WIDTH) {
+    return "tall";
+  }
+
+  // Logo only: enough room for menu + logo
+  if (rows >= MENU_HEIGHT + LOGO_HEIGHT + 2 && cols >= LOGO_WIDTH + 5) {
+    return "logo-only";
+  }
+
+  // Minimal: just the menu
+  return "minimal";
+}
 
 async function showStatus(): Promise<void> {
   inSubmenu = true;
@@ -75,13 +140,8 @@ async function showStatus(): Promise<void> {
 
   console.log(`\n${DIM}Press any key to go back${RESET}`);
 
-  // Wait for keypress
   await new Promise<void>((resolve) => {
-    const onData = () => {
-      process.stdin.off("data", onData);
-      resolve();
-    };
-    process.stdin.once("data", onData);
+    process.stdin.once("data", () => resolve());
   });
 
   inSubmenu = false;
@@ -92,7 +152,6 @@ async function startDaemon(): Promise<void> {
   process.stdout.write(CLEAR);
   console.log(`${BOLD}${CYAN}Starting crit...${RESET}\n`);
 
-  // Run crit start in background
   const child = spawn("crit", ["start"], {
     detached: true,
     stdio: "ignore",
@@ -142,7 +201,6 @@ async function editProject(): Promise<void> {
     return;
   }
 
-  // Restore terminal state before opening editor
   process.stdout.write(SHOW_CURSOR);
   process.stdin.setRawMode(false);
 
@@ -156,7 +214,6 @@ async function editProject(): Promise<void> {
     child.on("close", () => resolve());
   });
 
-  // Restore TUI mode
   process.stdin.setRawMode(true);
   process.stdout.write(HIDE_CURSOR);
 }
@@ -169,48 +226,100 @@ const menuItems: MenuItem[] = [
   { label: "Quit", action: () => { running = false; } },
 ];
 
+function renderMenu(): string[] {
+  const lines: string[] = [];
+  lines.push(`${BOLD}${BLUE}crit${RESET} ${DIM}v0.1.0${RESET}`);
+  lines.push("");
+  lines.push(`${DIM}j/k ↑/↓ navigate  enter select  q quit${RESET}`);
+  lines.push("");
+
+  for (let i = 0; i < menuItems.length; i++) {
+    const item = menuItems[i];
+    if (i === selectedIndex) {
+      lines.push(`${CYAN}❯ ${BOLD}${item.label}${RESET}`);
+    } else {
+      lines.push(`  ${item.label}`);
+    }
+  }
+
+  return lines;
+}
+
 function render(): void {
   if (inSubmenu) return;
 
   process.stdout.write(CLEAR);
 
-  console.log(`${BOLD}${BLUE}crit${RESET} ${DIM}v0.1.0${RESET}\n`);
-  console.log(`${DIM}Navigate: j/k or ↑/↓  Select: Enter  Quit: q${RESET}\n`);
+  const layout = getLayoutMode();
+  const menuLines = renderMenu();
 
-  for (let i = 0; i < menuItems.length; i++) {
-    const item = menuItems[i];
-    if (i === selectedIndex) {
-      console.log(`${CYAN}❯ ${BOLD}${item.label}${RESET}`);
-    } else {
-      console.log(`  ${item.label}`);
+  if (layout === "wide") {
+    // Menu on left, logo + eyes on right
+    const artLines = [...LOGO, "", ...EYES];
+    const maxLines = Math.max(menuLines.length, artLines.length);
+
+    for (let i = 0; i < maxLines; i++) {
+      const menuPart = menuLines[i] || "";
+      const artPart = artLines[i] || "";
+      // Pad menu to fixed width, then add art
+      const menuPadded = menuPart + " ".repeat(Math.max(0, MENU_WIDTH - stripAnsi(menuPart).length));
+      console.log(`${menuPadded}  ${artPart}`);
+    }
+  } else if (layout === "tall") {
+    // Menu, then logo, then eyes below
+    for (const line of menuLines) {
+      console.log(line);
+    }
+    console.log("");
+    for (const line of LOGO) {
+      console.log(line);
+    }
+    console.log("");
+    for (const line of EYES) {
+      console.log(line);
+    }
+  } else if (layout === "logo-only") {
+    // Menu, then just logo below
+    for (const line of menuLines) {
+      console.log(line);
+    }
+    console.log("");
+    for (const line of LOGO) {
+      console.log(line);
+    }
+  } else {
+    // Minimal: just menu
+    for (const line of menuLines) {
+      console.log(line);
     }
   }
+}
+
+// Helper to strip ANSI codes for length calculation
+function stripAnsi(str: string): string {
+  return str.replace(/\x1b\[[0-9;]*m/g, "");
 }
 
 function handleKey(key: Buffer): void {
   const str = key.toString();
 
-  // Ctrl+C or q to quit
   if (str === "\x03" || str === "q") {
     running = false;
     return;
   }
 
-  // j or down arrow
   if (str === "j" || str === "\x1b[B") {
     selectedIndex = (selectedIndex + 1) % menuItems.length;
     render();
     return;
   }
 
-  // k or up arrow
   if (str === "k" || str === "\x1b[A") {
     selectedIndex = (selectedIndex - 1 + menuItems.length) % menuItems.length;
     render();
     return;
   }
 
-  // Enter
   if (str === "\r" || str === "\n") {
     const item = menuItems[selectedIndex];
     item.action();
@@ -219,22 +328,23 @@ function handleKey(key: Buffer): void {
 }
 
 export async function tui(): Promise<void> {
-  // Check if we're in a TTY
   if (!process.stdin.isTTY) {
     console.log("TUI requires an interactive terminal.");
     console.log("Use 'crit --help' for command-line options.");
     process.exit(1);
   }
 
-  // Setup terminal
   process.stdin.setRawMode(true);
   process.stdin.resume();
   process.stdout.write(HIDE_CURSOR);
 
-  // Initial render
+  // Re-render on terminal resize
+  process.stdout.on("resize", () => {
+    if (!inSubmenu) render();
+  });
+
   render();
 
-  // Handle input
   process.stdin.on("data", async (key) => {
     if (inSubmenu) return;
     handleKey(key);
@@ -244,7 +354,6 @@ export async function tui(): Promise<void> {
     }
   });
 
-  // Wait until quit
   await new Promise<void>((resolve) => {
     const check = setInterval(() => {
       if (!running) {
@@ -263,6 +372,5 @@ function cleanup(): void {
   process.exit(0);
 }
 
-// Handle unexpected exit
 process.on("SIGINT", cleanup);
 process.on("SIGTERM", cleanup);
