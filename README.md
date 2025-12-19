@@ -13,7 +13,7 @@ _╱ ___╲_  __ ╲  ╲   __╲
 ⣿⣿⣿⣿⣿⣿⣿⣿⣄⢷⢸⣣⣣⡻⡿⣆⠃⠛⢿⣿⣿⣟⣽⣛⣿⣯⣴⣿⣿⣿⣿⣿⣿⣶⣶⠞⢈⡿⢡⣿⢿⣿⣟⢰⣟⡌⠀⣺⣿⠛⢉⣪⣥⣶⠿⢛⣭⣾⣿⣿⣿⣿⣿⣿⣿
 
 
-Circular AI development tool for Claude Code.
+Circular AI devtool for CC.
 ```
 
 
