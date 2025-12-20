@@ -8,6 +8,7 @@ import {
 import { reportActions } from "./reporter";
 import { appendHistory } from "../lib/state/history";
 import { analyzeChanges } from "./analyzer";
+import { queueFile, getQueueSize } from "../lib/analysis/queue";
 
 export interface DaemonHandle {
   stop: () => void;
@@ -20,12 +21,16 @@ export interface DaemonOptions {
   onActions?: (actions: Array<{ action: string; details: string }>) => void;
   /** Callback when criticisms are generated */
   onCriticisms?: (count: number) => void;
+  /** Callback when files are queued for deep analysis */
+  onQueueUpdate?: (queueSize: number) => void;
   /** Whether to write to history (default: true) */
   writeHistory?: boolean;
   /** Whether to write reports (default: true) */
   writeReports?: boolean;
   /** Whether to analyze for criticisms (default: true) */
   analyzeCriticisms?: boolean;
+  /** Whether to queue files for deep MCP-based analysis (default: true) */
+  queueForDeepAnalysis?: boolean;
 }
 
 /**
@@ -39,9 +44,11 @@ export async function startDaemon(
     onEvent,
     onActions,
     onCriticisms,
+    onQueueUpdate,
     writeHistory = true,
     writeReports = true,
     analyzeCriticisms = true,
+    queueForDeepAnalysis = true,
   } = options;
 
   // Set up processing callback for debounced events
@@ -90,6 +97,33 @@ export async function startDaemon(
         }
       } catch {
         // Ignore analysis errors
+      }
+    }
+
+    // Queue files for deep MCP-based analysis
+    if (queueForDeepAnalysis) {
+      const sourceExts = [".ts", ".tsx", ".js", ".jsx"];
+      const sourceEvents = events.filter((e) => {
+        const ext = e.path.split(".").pop();
+        return ext && sourceExts.includes(`.${ext}`) &&
+               e.type !== "unlink" &&
+               !e.path.includes(".test.") &&
+               !e.path.includes(".spec.");
+      });
+
+      for (const event of sourceEvents) {
+        // Higher priority for larger changes or new files
+        const priority = event.type === "add" ? 70 : 50;
+        queueFile(projectPath, event.path, {
+          priority,
+          reason: event.type === "add" ? "new file added" : "file modified",
+        });
+      }
+
+      // Notify about queue size
+      if (onQueueUpdate && sourceEvents.length > 0) {
+        const size = getQueueSize(projectPath);
+        onQueueUpdate(size);
       }
     }
   });

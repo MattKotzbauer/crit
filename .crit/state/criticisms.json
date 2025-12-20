@@ -428,6 +428,1493 @@
       "severity": "medium",
       "status": "pending",
       "createdAt": "2025-12-20T00:47:47.837Z"
+    },
+    {
+      "id": "simplify-4a50f2a5",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts:2",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.334Z"
+    },
+    {
+      "id": "simplify-6fa9f30d",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.337Z"
+    },
+    {
+      "id": "simplify-a43be92",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/daemon/reporter.ts"
+      ],
+      "location": "src/daemon/reporter.ts:9",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.340Z"
+    },
+    {
+      "id": "simplify-6685034b",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/daemon/watcher.ts"
+      ],
+      "location": "src/daemon/watcher.ts:57",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.342Z"
+    },
+    {
+      "id": "simplify-3e67ce4",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using better",
+      "description": "Rule from CLAUDE.md: Avoid using better",
+      "files": [
+        "src/mcp/tools.ts"
+      ],
+      "location": "src/mcp/tools.ts:200",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.344Z"
+    },
+    {
+      "id": "simplify-35e93190",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using vite",
+      "description": "Rule from CLAUDE.md: Avoid using vite",
+      "files": [
+        "src/hooks/post-tool.ts"
+      ],
+      "location": "src/hooks/post-tool.ts:41",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.348Z"
+    },
+    {
+      "id": "simplify-273782bd",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using vite",
+      "description": "Rule from CLAUDE.md: Avoid using vite",
+      "files": [
+        "src/hooks/pre-tool.ts"
+      ],
+      "location": "src/hooks/pre-tool.ts:60",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.349Z"
+    },
+    {
+      "id": "elim-45ed6d30",
+      "category": "ELIM",
+      "subject": "unused import: Glob",
+      "description": "Found 1 unused import: Glob. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/context/analyzer.ts"
+      ],
+      "location": "src/lib/context/analyzer.ts:2",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.350Z"
+    },
+    {
+      "id": "simplify-3684503e",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/lib/context/injector.ts"
+      ],
+      "location": "src/lib/context/injector.ts:127",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.351Z"
+    },
+    {
+      "id": "simplify-1005febb",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using better",
+      "description": "Rule from CLAUDE.md: Avoid using better",
+      "files": [
+        "src/lib/criticism/types.ts"
+      ],
+      "location": "src/lib/criticism/types.ts:6",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.352Z"
+    },
+    {
+      "id": "simplify-4aaa9360",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/lib/criticism/status.ts"
+      ],
+      "location": "src/lib/criticism/status.ts:136",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.354Z"
+    },
+    {
+      "id": "elim-262f80b8",
+      "category": "ELIM",
+      "subject": "unused import: x",
+      "description": "Found 1 unused import: x. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/overview/scanner.ts"
+      ],
+      "location": "src/lib/overview/scanner.ts:404",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.357Z"
+    },
+    {
+      "id": "elim-3b80c39a",
+      "category": "ELIM",
+      "subject": "unused imports: scanModule, extractExports, countLinesOf...",
+      "description": "Found 3 unused imports: scanModule, extractExports, countLinesOfCode. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/overview/generator.ts"
+      ],
+      "location": "src/lib/overview/generator.ts:3",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.359Z"
+    },
+    {
+      "id": "elim-208f4577",
+      "category": "ELIM",
+      "subject": "unused import: Z",
+      "description": "Found 1 unused import: Z. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/analysis/imports.ts"
+      ],
+      "location": "src/lib/analysis/imports.ts:41",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.361Z"
+    },
+    {
+      "id": "elim-1999e09c",
+      "category": "ELIM",
+      "subject": "unused import: statSync",
+      "description": "Found 1 unused import: statSync. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/analysis/clones.ts"
+      ],
+      "location": "src/lib/analysis/clones.ts:9",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-7934b2e3",
+      "category": "SIMPLIFY",
+      "subject": "Use Bun.file instead of require('fs')",
+      "description": "Use Bun.file instead of require('fs'). Found import that could use a native/preferred alternative.",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:92",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-698104a",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using dotenv",
+      "description": "Rule from CLAUDE.md: Avoid using dotenv",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:89",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-50690f6c",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using express",
+      "description": "Rule from CLAUDE.md: Avoid using express",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:84",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-27007ba2",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using better",
+      "description": "Rule from CLAUDE.md: Avoid using better",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:87",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-da86bd1",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ioredis",
+      "description": "Rule from CLAUDE.md: Avoid using ioredis",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:90",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-39c2ce69",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using pg",
+      "description": "Rule from CLAUDE.md: Avoid using pg",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:91",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "simplify-7f46cb0e",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:88",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.362Z"
+    },
+    {
+      "id": "elim-6a64344c",
+      "category": "ELIM",
+      "subject": "unused import: dirname",
+      "description": "Found 1 unused import: dirname. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:9",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.363Z"
+    },
+    {
+      "id": "elim-50cf3d9",
+      "category": "ELIM",
+      "subject": "potential bearer token",
+      "description": "Found what appears to be a hardcoded Bearer Token at line 41. Hardcoded secrets should be moved to environment variables or a secrets manager. Detected pattern: \"Bearer Token\"",
+      "files": [
+        "src/lib/analysis/secrets.ts"
+      ],
+      "location": "src/lib/analysis/secrets.ts:41",
+      "severity": "high",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.363Z"
+    },
+    {
+      "id": "simplify-6d7e5ac2",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/lib/analysis/secrets.ts"
+      ],
+      "location": "src/lib/analysis/secrets.ts:21",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.363Z"
+    },
+    {
+      "id": "elim-59a8c8ce",
+      "category": "ELIM",
+      "subject": "unused import: statSync",
+      "description": "Found 1 unused import: statSync. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/lib/analysis/index.ts"
+      ],
+      "location": "src/lib/analysis/index.ts:12",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.364Z"
+    },
+    {
+      "id": "simplify-4b5ac28d",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using ws",
+      "description": "Rule from CLAUDE.md: Avoid using ws",
+      "files": [
+        "src/lib/rules/manager.ts"
+      ],
+      "location": "src/lib/rules/manager.ts:77",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.371Z"
+    },
+    {
+      "id": "simplify-1d892c6e",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using better",
+      "description": "Rule from CLAUDE.md: Avoid using better",
+      "files": [
+        "src/lib/bloat/types.ts"
+      ],
+      "location": "src/lib/bloat/types.ts:29",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.372Z"
+    },
+    {
+      "id": "simplify-8364297",
+      "category": "SIMPLIFY",
+      "subject": "Avoid using better",
+      "description": "Rule from CLAUDE.md: Avoid using better",
+      "files": [
+        "src/lib/bloat/detector.ts"
+      ],
+      "location": "src/lib/bloat/detector.ts:325",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.373Z"
+    },
+    {
+      "id": "elim-3473501a",
+      "category": "ELIM",
+      "subject": "unused import: getCritDir",
+      "description": "Found 1 unused import: getCritDir. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/commands/deliverables.ts"
+      ],
+      "location": "src/commands/deliverables.ts:11",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.375Z"
+    },
+    {
+      "id": "elim-55c81e1f",
+      "category": "ELIM",
+      "subject": "unused import: getCritDir",
+      "description": "Found 1 unused import: getCritDir. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "src/commands/run.ts"
+      ],
+      "location": "src/commands/run.ts:1",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.375Z"
+    },
+    {
+      "id": "simplify-5f3ccf7f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/tui/issues.ts\" and \"src/tui/index.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/tui/issues.ts",
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/issues.ts:67",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.408Z"
+    },
+    {
+      "id": "simplify-6babb8d9",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 102-107 and 103-108 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts:102",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.408Z"
+    },
+    {
+      "id": "simplify-32b5764f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 17-22 and 18-23 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/tui/index.ts"
+      ],
+      "location": "src/tui/index.ts:17",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-47861451",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 16-21 and 45-50 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/daemon/reporter.ts"
+      ],
+      "location": "src/daemon/reporter.ts:16",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-37010571",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/daemon/analyzer.ts\" and \"src/lib/analysis/index.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/daemon/analyzer.ts",
+        "src/lib/analysis/index.ts"
+      ],
+      "location": "src/daemon/analyzer.ts:5",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-4bea88df",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/daemon/analyzer.ts\" and \"src/lib/analysis/clones.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/daemon/analyzer.ts",
+        "src/lib/analysis/clones.ts"
+      ],
+      "location": "src/daemon/analyzer.ts:42",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-21453d4f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 44-49 and 45-50 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/daemon/analyzer.ts"
+      ],
+      "location": "src/daemon/analyzer.ts:44",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-495d6b4d",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 3-8 and 4-9 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/daemon/processor.ts"
+      ],
+      "location": "src/daemon/processor.ts:3",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-1d5d4539",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 4-9 and 5-10 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/daemon/watcher.ts"
+      ],
+      "location": "src/daemon/watcher.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-f3ca54d",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 11-16 and 12-17 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/daemon/index.ts"
+      ],
+      "location": "src/daemon/index.ts:11",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-44483f11",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 20-25 and 183-188 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/mcp/tools.ts"
+      ],
+      "location": "src/mcp/tools.ts:20",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-54199b61",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 47-52 and 48-53 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/mcp/handlers.ts"
+      ],
+      "location": "src/mcp/handlers.ts:47",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-1abdc4e1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/mcp/handlers.ts\" and \"src/lib/state/history.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/mcp/handlers.ts",
+        "src/lib/state/history.ts"
+      ],
+      "location": "src/mcp/handlers.ts:118",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-6aa8502e",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/mcp/handlers.ts\" and \"src/lib/state/initiatives.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/mcp/handlers.ts",
+        "src/lib/state/initiatives.ts"
+      ],
+      "location": "src/mcp/handlers.ts:151",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-11bacf95",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 79-84 and 95-100 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/mcp/server.ts"
+      ],
+      "location": "src/mcp/server.ts:79",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-368160d1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 6-11 and 7-12 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/hooks/install.ts"
+      ],
+      "location": "src/hooks/install.ts:6",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-5b820a91",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 14-19 and 15-20 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/hooks/types.ts"
+      ],
+      "location": "src/hooks/types.ts:14",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-56a2d311",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 9-14 and 10-15 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/hooks/post-tool.ts"
+      ],
+      "location": "src/hooks/post-tool.ts:9",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-ab7e5fc",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/hooks/post-tool.ts\" and \"src/hooks/pre-tool.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/hooks/post-tool.ts",
+        "src/hooks/pre-tool.ts"
+      ],
+      "location": "src/hooks/post-tool.ts:15",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-3c077399",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 76-81 and 77-82 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/hooks/pre-tool.ts"
+      ],
+      "location": "src/hooks/pre-tool.ts:76",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-76a94df1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 15-20 and 16-21 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/hooks/index.ts"
+      ],
+      "location": "src/hooks/index.ts:15",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-28f9f0fb",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 26-31 and 27-32 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/context/analyzer.ts"
+      ],
+      "location": "src/lib/context/analyzer.ts:26",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-5cc5341",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/context/analyzer.ts\" and \"src/lib/config.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/context/analyzer.ts",
+        "src/lib/config.ts"
+      ],
+      "location": "src/lib/context/analyzer.ts:197",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-780aeca7",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/context/analyzer.ts\" and \"src/lib/overview/scanner.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/context/analyzer.ts",
+        "src/lib/overview/scanner.ts"
+      ],
+      "location": "src/lib/context/analyzer.ts:212",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-7da1e4cf",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 17-22 and 18-23 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/context/types.ts"
+      ],
+      "location": "src/lib/context/types.ts:17",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-a27d75f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 31-36 and 32-37 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/context/injector.ts"
+      ],
+      "location": "src/lib/context/injector.ts:31",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-72b1df0f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 40-45 and 101-106 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/context/manager.ts"
+      ],
+      "location": "src/lib/context/manager.ts:40",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.409Z"
+    },
+    {
+      "id": "simplify-13d00471",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 7-12 and 8-13 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/criticism/store.ts"
+      ],
+      "location": "src/lib/criticism/store.ts:7",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-51d4a571",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 9-14 and 10-15 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/criticism/types.ts"
+      ],
+      "location": "src/lib/criticism/types.ts:9",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-791717ef",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 7-12 and 8-13 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/criticism/preferences.ts"
+      ],
+      "location": "src/lib/criticism/preferences.ts:7",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-6b6c7cff",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/criticism/preferences.ts\" and \"src/lib/criticism/status.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/criticism/preferences.ts",
+        "src/lib/criticism/status.ts"
+      ],
+      "location": "src/lib/criticism/preferences.ts:16",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-21dd8923",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 10-15 and 11-16 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/criticism/status.ts"
+      ],
+      "location": "src/lib/criticism/status.ts:10",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-47e0e349",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 15-20 and 16-21 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/overview/scanner.ts"
+      ],
+      "location": "src/lib/overview/scanner.ts:15",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-21a82bbe",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/overview/scanner.ts\" and \"src/lib/overview/generator.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/overview/scanner.ts",
+        "src/lib/overview/generator.ts"
+      ],
+      "location": "src/lib/overview/scanner.ts:455",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7963da8d",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 10-15 and 11-16 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/overview/generator.ts"
+      ],
+      "location": "src/lib/overview/generator.ts:10",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-67770d3f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 7-12 and 8-13 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/overview/types.ts"
+      ],
+      "location": "src/lib/overview/types.ts:7",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-597830a4",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/analysis/imports.ts\" and \"src/lib/analysis/secrets.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/analysis/imports.ts",
+        "src/lib/analysis/secrets.ts"
+      ],
+      "location": "src/lib/analysis/imports.ts:6",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7bb871d1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 40-45 and 41-46 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/analysis/imports.ts"
+      ],
+      "location": "src/lib/analysis/imports.ts:40",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7d789e28",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/analysis/imports.ts\" and \"src/lib/analysis/rules.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/analysis/imports.ts",
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/imports.ts:105",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7818d371",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 12-17 and 13-18 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/analysis/clones.ts"
+      ],
+      "location": "src/lib/analysis/clones.ts:12",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-148bea43",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/analysis/clones.ts\" and \"src/lib/analysis/index.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/analysis/clones.ts",
+        "src/lib/analysis/index.ts"
+      ],
+      "location": "src/lib/analysis/clones.ts:71",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7255537f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 94-99 and 95-100 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/analysis/rules.ts"
+      ],
+      "location": "src/lib/analysis/rules.ts:94",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-93abe67",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 11-16 and 12-17 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/analysis/secrets.ts"
+      ],
+      "location": "src/lib/analysis/secrets.ts:11",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7653f3c9",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 78-83 and 79-84 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/analysis/index.ts"
+      ],
+      "location": "src/lib/analysis/index.ts:78",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-5dfe0d97",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/testing/tracker.ts\" and \"src/lib/testing/index.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/testing/tracker.ts",
+        "src/lib/testing/index.ts"
+      ],
+      "location": "src/lib/testing/tracker.ts:9",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-7711028f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 14-19 and 15-20 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/testing/tracker.ts"
+      ],
+      "location": "src/lib/testing/tracker.ts:14",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-532d1651",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 4-9 and 5-10 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/testing/types.ts"
+      ],
+      "location": "src/lib/testing/types.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-55cbdd69",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 22-27 and 23-28 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/testing/enforcer.ts"
+      ],
+      "location": "src/lib/testing/enforcer.ts:22",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-a537e71",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 14-19 and 15-20 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/project/types.ts"
+      ],
+      "location": "src/lib/project/types.ts:14",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-74a423dd",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 38-43 and 39-44 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/project/parser.ts"
+      ],
+      "location": "src/lib/project/parser.ts:38",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-38e026b1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 4-9 and 5-10 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/project/manager.ts"
+      ],
+      "location": "src/lib/project/manager.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-21c2b08b",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 19-24 and 20-25 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/deliverables/types.ts"
+      ],
+      "location": "src/lib/deliverables/types.ts:19",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-78034123",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 14-19 and 15-20 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/deliverables/manager.ts"
+      ],
+      "location": "src/lib/deliverables/manager.ts:14",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-5cc15411",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 50-55 and 51-56 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/state/session.ts"
+      ],
+      "location": "src/lib/state/session.ts:50",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-247e79b1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 14-19 and 15-20 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/state/initiatives.ts"
+      ],
+      "location": "src/lib/state/initiatives.ts:14",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-bc3ba2f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 24-29 and 25-30 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/state/history.ts"
+      ],
+      "location": "src/lib/state/history.ts:24",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-3814c96f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 1-6 and 2-7 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/state/index.ts"
+      ],
+      "location": "src/lib/state/index.ts:1",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-1b9003f1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 7-12 and 8-13 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/rules/types.ts"
+      ],
+      "location": "src/lib/rules/types.ts:7",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-4e7afbdf",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/rules/parser.ts\" and \"src/lib/rules/manager.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/rules/parser.ts",
+        "src/lib/rules/manager.ts"
+      ],
+      "location": "src/lib/rules/parser.ts:2",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-42e49b59",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 23-28 and 24-29 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/rules/parser.ts"
+      ],
+      "location": "src/lib/rules/parser.ts:23",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-4f23b14f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 55-60 and 56-61 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/rules/manager.ts"
+      ],
+      "location": "src/lib/rules/manager.ts:55",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-54d1442f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 1-6 and 2-7 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/rules/index.ts"
+      ],
+      "location": "src/lib/rules/index.ts:1",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-2ba88115",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/bloat/analyzer.ts\" and \"src/lib/bloat/index.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/bloat/analyzer.ts",
+        "src/lib/bloat/index.ts"
+      ],
+      "location": "src/lib/bloat/analyzer.ts:8",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-4901cd73",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 23-28 and 24-29 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/bloat/analyzer.ts"
+      ],
+      "location": "src/lib/bloat/analyzer.ts:23",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-738a136d",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/lib/bloat/analyzer.ts\" and \"src/lib/bloat/detector.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/lib/bloat/analyzer.ts",
+        "src/lib/bloat/detector.ts"
+      ],
+      "location": "src/lib/bloat/analyzer.ts:144",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-770f8ad1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 33-38 and 34-39 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/bloat/types.ts"
+      ],
+      "location": "src/lib/bloat/types.ts:33",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-5dec9c4d",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 1-6 and 5-10 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/bloat/detector.ts"
+      ],
+      "location": "src/lib/bloat/detector.ts:1",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-32c3752f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 3-8 and 4-9 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/lib/paths.ts"
+      ],
+      "location": "src/lib/paths.ts:3",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-2fa4184f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 4-9 and 5-10 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/init.ts"
+      ],
+      "location": "src/commands/init.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-15f5c257",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code across files. Similar code exists in both \"src/commands/rules.ts\" and \"src/commands/clean.ts\". Consider consolidating into a shared module.",
+      "files": [
+        "src/commands/rules.ts",
+        "src/commands/clean.ts"
+      ],
+      "location": "src/commands/rules.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-5d4010cf",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 18-23 and 19-24 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/deliverables.ts"
+      ],
+      "location": "src/commands/deliverables.ts:18",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-3bbf8a4b",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 13-18 and 14-19 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/context.ts"
+      ],
+      "location": "src/commands/context.ts:13",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-31a714f1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 19-24 and 20-25 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/test.ts"
+      ],
+      "location": "src/commands/test.ts:19",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.410Z"
+    },
+    {
+      "id": "simplify-76775665",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 9-14 and 10-15 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/start.ts"
+      ],
+      "location": "src/commands/start.ts:9",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.411Z"
+    },
+    {
+      "id": "simplify-55578d91",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 11-16 and 12-17 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/hook.ts"
+      ],
+      "location": "src/commands/hook.ts:11",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.411Z"
+    },
+    {
+      "id": "simplify-6504e9b1",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 4-9 and 5-10 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/status.ts"
+      ],
+      "location": "src/commands/status.ts:4",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.411Z"
+    },
+    {
+      "id": "simplify-599a50f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 35-40 and 36-41 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/commands/stop.ts"
+      ],
+      "location": "src/commands/stop.ts:35",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.411Z"
+    },
+    {
+      "id": "simplify-5943392f",
+      "category": "SIMPLIFY",
+      "subject": "duplicated code block (6+ lines)",
+      "description": "Found duplicated code within the same file. Lines 18-23 and 19-24 are nearly identical. Consider extracting to a shared function.",
+      "files": [
+        "src/cli.ts"
+      ],
+      "location": "src/cli.ts:18",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T03:37:57.411Z"
+    },
+    {
+      "id": "elim-27b801ef",
+      "category": "ELIM",
+      "subject": "unused imports: type, statements",
+      "description": "Found 2 unused imports: type, statements. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "/home/matt/thing/crit/src/lib/analysis/queue.ts"
+      ],
+      "location": "/home/matt/thing/crit/src/lib/analysis/queue.ts:10",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T14:00:03.776Z"
+    },
+    {
+      "id": "test-47335a4c",
+      "category": "TEST",
+      "subject": "missing tests for queue.ts",
+      "description": "New file queue.ts was added without corresponding tests. Consider adding test coverage for this module.",
+      "files": [
+        "src/lib/analysis/queue.ts"
+      ],
+      "location": "src/lib/analysis/queue.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T14:00:03.776Z"
+    },
+    {
+      "id": "elim-11c18a85",
+      "category": "ELIM",
+      "subject": "unused imports: queueFile, getQueueSize",
+      "description": "Found 2 unused imports: queueFile, getQueueSize. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "/home/matt/thing/crit/src/daemon/index.ts"
+      ],
+      "location": "/home/matt/thing/crit/src/daemon/index.ts:11",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T14:03:21.872Z"
+    },
+    {
+      "id": "elim-6869c81b",
+      "category": "ELIM",
+      "subject": "unused import: getQueueSize",
+      "description": "Found 1 unused import: getQueueSize. These can be safely removed to reduce bundle size and improve clarity.",
+      "files": [
+        "/home/matt/thing/crit/src/tui/index.ts"
+      ],
+      "location": "/home/matt/thing/crit/src/tui/index.ts:17",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2025-12-20T14:05:32.994Z"
     }
   ],
   "lastAnalysis": "2025-12-19T22:10:41.436Z"

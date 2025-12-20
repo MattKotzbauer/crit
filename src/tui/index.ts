@@ -14,12 +14,14 @@ import { startDaemon as startCritDaemon, type DaemonHandle } from "../daemon";
 import { analyzeProject } from "../daemon/analyzer";
 import { initPreferences } from "../lib/criticism/preferences";
 import { initStatus } from "../lib/criticism/status";
+import { getQueueSize } from "../lib/analysis/queue";
 
 // Cached data for panels
 let cachedHistory: HistoryEntry[] = [];
 let historyWatcher: FSWatcher | null = null;
 let projectWatcher: FSWatcher | null = null;
 let daemonHandle: DaemonHandle | null = null;
+let analysisQueueSize = 0;
 
 // ANSI escape codes
 const ESC = "\x1b";
@@ -136,7 +138,11 @@ async function showStatus(): Promise<void> {
 
   // Issues count
   const issueCount = getPendingCriticisms(cwd).length;
-  console.log(`${BOLD}Issues${RESET}: ${issueCount > 0 ? `${YELLOW}${issueCount} pending${RESET}` : `${DIM}none${RESET}`}\n`);
+  console.log(`${BOLD}Issues${RESET}: ${issueCount > 0 ? `${YELLOW}${issueCount} pending${RESET}` : `${DIM}none${RESET}`}`);
+
+  // Analysis queue
+  const queueSize = getQueueSize(cwd);
+  console.log(`${BOLD}Analysis Queue${RESET}: ${queueSize > 0 ? `${CYAN}${queueSize} files${RESET}` : `${DIM}empty${RESET}`}\n`);
 
   // Load status from status.md
   const { parseStatus } = await import("../lib/criticism/status");
@@ -322,14 +328,23 @@ function renderActivityPanel(width: number, height: number): string[] {
 function renderIssuesPanel(width: number, height: number): string[] {
   const lines: string[] = [];
   const criticisms = getPendingCriticisms(cwd);
+  const queueSize = getQueueSize(cwd);
 
-  lines.push(`${BOLD}${YELLOW}Issues${RESET}`);
+  // Title with queue indicator
+  const queueIndicator = queueSize > 0 ? ` ${DIM}(${queueSize} queued)${RESET}` : "";
+  lines.push(`${BOLD}${YELLOW}Issues${RESET}${queueIndicator}`);
   lines.push(`${DIM}${"─".repeat(Math.min(width - 2, 40))}${RESET}`);
 
   if (criticisms.length === 0) {
-    lines.push(`${DIM}No pending issues${RESET}`);
-    lines.push(`${DIM}Daemon is watching${RESET}`);
-    lines.push(`${DIM}for changes...${RESET}`);
+    if (queueSize > 0) {
+      lines.push(`${DIM}No issues yet${RESET}`);
+      lines.push(`${CYAN}${queueSize} files${RESET} queued`);
+      lines.push(`${DIM}for deep analysis${RESET}`);
+    } else {
+      lines.push(`${DIM}No pending issues${RESET}`);
+      lines.push(`${DIM}Daemon is watching${RESET}`);
+      lines.push(`${DIM}for changes...${RESET}`);
+    }
   } else {
     const maxIssues = Math.min(criticisms.length, height - 3);
 
@@ -677,14 +692,19 @@ export async function tui(): Promise<void> {
 
   // Start daemon automatically
   try {
+    analysisQueueSize = getQueueSize(cwd);
     daemonHandle = await startCritDaemon(cwd, {
-      onCriticisms: (count) => {
-        issueCount = getPendingCriticisms(cwd).length;
+      onCriticisms: () => {
+        if (!inSubmenu && !showHelp) render();
+      },
+      onQueueUpdate: (size) => {
+        analysisQueueSize = size;
         if (!inSubmenu && !showHelp) render();
       },
       writeHistory: true,
       writeReports: true,
       analyzeCriticisms: true,
+      queueForDeepAnalysis: true,
     });
   } catch {
     // Ignore daemon start errors

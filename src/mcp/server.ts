@@ -31,6 +31,9 @@ import {
   handleAddCriticism,
   handleGetCriticisms,
   handleUpdateStatus,
+  handleGetAnalysisQueue,
+  handleMarkAnalyzed,
+  handleSearchOnline,
   type CheckRulesInput,
   type LogActionInput,
   type AddInitiativeInput,
@@ -42,6 +45,9 @@ import {
   type AddCriticismInput,
   type GetCriticismsInput,
   type UpdateStatusInput,
+  type GetAnalysisQueueInput,
+  type MarkAnalyzedInput,
+  type SearchOnlineInput,
 } from "./handlers";
 
 // Create server
@@ -261,6 +267,51 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "crit_update_status": {
         const input = (args || {}) as unknown as UpdateStatusInput;
         const result = await handleUpdateStatus(input);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_get_analysis_queue": {
+        const input = (args || {}) as unknown as GetAnalysisQueueInput;
+        const result = await handleGetAnalysisQueue(input);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_mark_analyzed": {
+        const input = args as unknown as MarkAnalyzedInput;
+        if (!input.file) {
+          throw new Error("file is required");
+        }
+        const result = await handleMarkAnalyzed(input);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case "crit_search_online": {
+        const input = args as unknown as SearchOnlineInput;
+        if (!input.query) {
+          throw new Error("query is required");
+        }
+        const result = await handleSearchOnline(input);
         return {
           content: [
             {

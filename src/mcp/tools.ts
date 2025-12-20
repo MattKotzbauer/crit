@@ -277,4 +277,53 @@ export const tools: ToolDefinition[] = [
       },
     },
   },
+  // Deep analysis tools
+  {
+    name: "crit_get_analysis_queue",
+    description:
+      "Get files queued for deep analysis. Returns file contents, related context, and web search results (Reddit/SO recommendations). Use this to find code that could be simplified or improved.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        limit: {
+          type: "number",
+          description: "Maximum number of files to return (default: 3)",
+        },
+      },
+    },
+  },
+  {
+    name: "crit_mark_analyzed",
+    description:
+      "Mark a file as analyzed (removes from queue). Call this after analyzing a file, whether or not you found issues.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        file: {
+          type: "string",
+          description: "File path that was analyzed",
+        },
+      },
+      required: ["file"],
+    },
+  },
+  {
+    name: "crit_search_online",
+    description:
+      "Search Reddit and Stack Overflow for recommendations about a code pattern. Use this to find community consensus on best practices.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: {
+          type: "string",
+          description: "Search query (e.g., 'typescript error handling pattern')",
+        },
+        language: {
+          type: "string",
+          description: "Programming language context (default: typescript)",
+        },
+      },
+      required: ["query"],
+    },
+  },
 ];

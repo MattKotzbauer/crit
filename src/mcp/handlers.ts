@@ -44,6 +44,16 @@ import {
   generateCriticismId,
 } from "../lib/criticism/store";
 import type { Criticism, CriticismCategory } from "../lib/criticism/types";
+import {
+  getAnalysisQueue,
+  markAnalyzed,
+  getQueueSize,
+  type AnalysisContext,
+} from "../lib/analysis/queue";
+import {
+  searchForPattern,
+  type SearchResult,
+} from "../lib/search";
 
 // Get project path from env or cwd
 function getProjectPath(): string {
@@ -646,5 +656,124 @@ export async function handleUpdateStatus(
   return {
     success: updated.length > 0,
     updated,
+  };
+}
+
+// ============================================================
+// Deep analysis handlers
+// ============================================================
+
+export type GetAnalysisQueueInput = {
+  limit?: number;
+};
+
+export type GetAnalysisQueueResult = {
+  files: Array<{
+    path: string;
+    priority: number;
+    reason: string;
+    content: string;
+    imports: string[];
+    searchResults: SearchResult[];
+    projectRules: string[];
+  }>;
+  queueSize: number;
+  instructions: string;
+};
+
+export async function handleGetAnalysisQueue(
+  input: GetAnalysisQueueInput
+): Promise<GetAnalysisQueueResult> {
+  const projectPath = getProjectPath();
+  const limit = input.limit || 3;
+
+  const queue = await getAnalysisQueue(projectPath, limit);
+  const queueSize = getQueueSize(projectPath);
+
+  return {
+    files: queue.map((ctx) => ({
+      path: ctx.file.path,
+      priority: ctx.file.priority,
+      reason: ctx.file.reason,
+      content: ctx.content,
+      imports: ctx.imports,
+      searchResults: ctx.searchResults,
+      projectRules: ctx.projectRules,
+    })),
+    queueSize,
+    instructions: `
+Analyze each file for:
+1. **Simplification opportunities**: Code that works but could be shorter/cleaner
+2. **Pattern improvements**: Better ways to do the same thing (based on search results)
+3. **Consistency issues**: Does this match how similar things are done elsewhere?
+4. **Project rule violations**: Does this follow the project rules listed?
+
+For each issue found, use crit_add_criticism to log it.
+After analyzing a file, use crit_mark_analyzed to remove it from the queue.
+
+Focus on semantic improvements, not syntax/formatting. If the search results
+show a better pattern or warn about a gotcha, include that in the criticism.
+`,
+  };
+}
+
+export type MarkAnalyzedInput = {
+  file: string;
+};
+
+export type MarkAnalyzedResult = {
+  success: boolean;
+};
+
+export async function handleMarkAnalyzed(
+  input: MarkAnalyzedInput
+): Promise<MarkAnalyzedResult> {
+  const projectPath = getProjectPath();
+  markAnalyzed(projectPath, input.file);
+  return { success: true };
+}
+
+export type SearchOnlineInput = {
+  query: string;
+  language?: string;
+};
+
+export type SearchOnlineResult = {
+  results: SearchResult[];
+  summary: string;
+};
+
+export async function handleSearchOnline(
+  input: SearchOnlineInput
+): Promise<SearchOnlineResult> {
+  const projectPath = getProjectPath();
+
+  const results = await searchForPattern(projectPath, input.query, {
+    language: input.language || "typescript",
+  });
+
+  // Build a summary of the findings
+  const summaryParts: string[] = [];
+  const redditResults = results.filter((r) => r.source === "reddit");
+  const soResults = results.filter((r) => r.source === "stackoverflow");
+
+  if (redditResults.length > 0) {
+    summaryParts.push(
+      `Found ${redditResults.length} Reddit discussions. Top: "${redditResults[0]?.title || ""}"`
+    );
+  }
+
+  if (soResults.length > 0) {
+    summaryParts.push(
+      `Found ${soResults.length} Stack Overflow answers. Top: "${soResults[0]?.title || ""}"`
+    );
+  }
+
+  return {
+    results,
+    summary:
+      summaryParts.length > 0
+        ? summaryParts.join(". ")
+        : "No relevant results found.",
   };
 }
