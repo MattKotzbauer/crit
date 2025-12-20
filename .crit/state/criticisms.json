@@ -298,6 +298,136 @@
       "severity": "medium",
       "status": "pending",
       "createdAt": "2025-12-19T22:31:21.480Z"
+    },
+    {
+      "id": "simplify-94029bc",
+      "category": "SIMPLIFY",
+      "subject": "File has 546 lines",
+      "description": "File has 546 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:44:56.855Z"
+    },
+    {
+      "id": "simplify-1d765fe2",
+      "category": "SIMPLIFY",
+      "subject": "File has 632 lines",
+      "description": "File has 632 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:45:55.262Z"
+    },
+    {
+      "id": "simplify-36982de8",
+      "category": "SIMPLIFY",
+      "subject": "File has 638 lines",
+      "description": "File has 638 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:46:14.370Z"
+    },
+    {
+      "id": "simplify-16ef18ff",
+      "category": "SIMPLIFY",
+      "subject": "File has 640 lines",
+      "description": "File has 640 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:46:58.045Z"
+    },
+    {
+      "id": "simplify-64e09a00",
+      "category": "SIMPLIFY",
+      "subject": "File has 641 lines",
+      "description": "File has 641 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:47:08.963Z"
+    },
+    {
+      "id": "simplify-1f4fb301",
+      "category": "SIMPLIFY",
+      "subject": "File has 642 lines",
+      "description": "File has 642 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:47:15.360Z"
+    },
+    {
+      "id": "simplify-5c7ffffe",
+      "category": "SIMPLIFY",
+      "subject": "File has 643 lines",
+      "description": "File has 643 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:47:25.617Z"
+    },
+    {
+      "id": "simplify-27b04d03",
+      "category": "SIMPLIFY",
+      "subject": "File has 644 lines",
+      "description": "File has 644 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:47:31.709Z"
+    },
+    {
+      "id": "simplify-541f65fc",
+      "category": "SIMPLIFY",
+      "subject": "File has 645 lines",
+      "description": "File has 645 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:47:36.930Z"
+    },
+    {
+      "id": "simplify-3010e705",
+      "category": "SIMPLIFY",
+      "subject": "File has 646 lines",
+      "description": "File has 646 lines\n\nSuggestion: Consider splitting this file into smaller, focused modules",
+      "files": [
+        "src/tui/issues.ts"
+      ],
+      "location": "src/tui/issues.ts",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2025-12-20T00:47:47.837Z"
     }
   ],
   "lastAnalysis": "2025-12-19T22:10:41.436Z"

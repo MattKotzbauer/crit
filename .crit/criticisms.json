@@ -1,0 +1,49 @@
+{
+  "criticisms": [
+    {
+      "id": "elim-test-1",
+      "category": "ELIM",
+      "subject": "unused helper function",
+      "description": "The function formatDate() is defined but never called anywhere in the codebase. Consider removing it to reduce code bloat.",
+      "files": ["src/lib/utils.ts"],
+      "location": "src/lib/utils.ts:45",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "elim-test-2",
+      "category": "ELIM",
+      "subject": "dead export in types",
+      "description": "The exported type UserSettings is not imported anywhere. This adds unnecessary symbols to the module namespace.",
+      "files": ["src/types/index.ts"],
+      "location": "src/types/index.ts:12",
+      "severity": "low",
+      "status": "pending",
+      "createdAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "simplify-test-1",
+      "category": "SIMPLIFY",
+      "subject": "complex parser logic",
+      "description": "This parsing function has 7 levels of nesting. Consider using early returns or extracting helper functions to improve readability.",
+      "files": ["src/lib/parser.ts"],
+      "location": "src/lib/parser.ts:120",
+      "severity": "medium",
+      "status": "pending",
+      "createdAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "test-test-1",
+      "category": "TEST",
+      "subject": "auth flow needs tests",
+      "description": "The authentication module has no test coverage. Adding tests for login, logout, and token refresh would improve reliability.",
+      "files": ["src/auth/index.ts", "src/auth/tokens.ts"],
+      "location": "src/auth/index.ts",
+      "severity": "high",
+      "status": "pending",
+      "createdAt": "2024-01-15T10:00:00Z"
+    }
+  ],
+  "lastUpdated": "2024-01-15T10:00:00Z"
+}

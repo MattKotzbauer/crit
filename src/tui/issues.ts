@@ -149,18 +149,33 @@ function renderLeftPanel(items: ListItem[], selectedIdx: number, height: number)
   const lines: string[] = [];
   const visibleItems = items.slice(state.scrollOffset, state.scrollOffset + height);
 
+  // Build number mapping for criticisms
+  let criticismNum = 0;
+  const numMap = new Map<number, number>();
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item && item.type === "criticism") {
+      criticismNum++;
+      numMap.set(i, criticismNum);
+    }
+  }
+
   for (let i = 0; i < visibleItems.length; i++) {
     const item = visibleItems[i];
+    if (!item) continue;
     const globalIdx = state.scrollOffset + i;
     const isSelected = globalIdx === selectedIdx;
 
-    if (item.type === "header") {
-      const color = CATEGORY_COLORS[item.category!];
-      const icon = CATEGORY_ICONS[item.category!];
-      lines.push(`${color}${BOLD}─ ${icon} ${item.category} ${"─".repeat(LEFT_PANEL_WIDTH - item.category!.length - 6)}${RESET}`);
-    } else {
-      const prefix = isSelected ? `${CYAN}❯ ${RESET}` : "  ";
-      const subject = truncate(item.criticism!.subject, LEFT_PANEL_WIDTH - 4);
+    if (item.type === "header" && item.category) {
+      const color = CATEGORY_COLORS[item.category];
+      const icon = CATEGORY_ICONS[item.category];
+      lines.push(`${color}${BOLD}─ ${icon} ${item.category} ${"─".repeat(LEFT_PANEL_WIDTH - item.category.length - 6)}${RESET}`);
+    } else if (item.criticism) {
+      const num = numMap.get(globalIdx) || 0;
+      const numStr = String(num).padStart(2, " ");
+      const prefix = isSelected ? `${CYAN}${numStr}▸${RESET}` : `${DIM}${numStr}${RESET} `;
+      const maxSubjectLen = LEFT_PANEL_WIDTH - 5;
+      const subject = truncate(item.criticism.subject, maxSubjectLen);
       const bg = isSelected ? BG_DIM : "";
       lines.push(`${bg}${prefix}${subject}${RESET}`);
     }
@@ -174,83 +189,169 @@ function renderLeftPanel(items: ListItem[], selectedIdx: number, height: number)
   return lines;
 }
 
+function truncateLine(line: string, maxWidth: number): string {
+  const stripped = stripAnsi(line);
+  if (stripped.length <= maxWidth) {
+    return line + " ".repeat(maxWidth - stripped.length);
+  }
+  // Truncate while preserving ANSI codes
+  let visibleLen = 0;
+  let result = "";
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === "\x1b") {
+      const match = line.slice(i).match(/^\x1b\[[0-9;]*m/);
+      if (match) {
+        result += match[0];
+        i += match[0].length - 1;
+        continue;
+      }
+    }
+    if (visibleLen >= maxWidth - 1) {
+      break;
+    }
+    result += line[i];
+    visibleLen++;
+  }
+  return result + RESET;
+}
+
+function wrapText(text: string, width: number): string[] {
+  const lines: string[] = [];
+  const words = text.split(/\s+/);
+  let currentLine = "";
+
+  for (const word of words) {
+    if (currentLine.length + word.length + 1 > width) {
+      if (currentLine) lines.push(currentLine);
+      currentLine = word;
+    } else {
+      currentLine = currentLine ? `${currentLine} ${word}` : word;
+    }
+  }
+  if (currentLine) lines.push(currentLine);
+  return lines;
+}
+
 function renderRightPanel(criticism: Criticism | null, width: number, height: number): string[] {
   const lines: string[] = [];
+  const innerWidth = width - 4; // Account for box borders and padding
+
+  // Box drawing characters
+  const TOP_LEFT = "┌";
+  const TOP_RIGHT = "┐";
+  const BOTTOM_LEFT = "└";
+  const BOTTOM_RIGHT = "┘";
+  const HORIZONTAL = "─";
+  const VERTICAL = "│";
 
   if (!criticism) {
-    lines.push(`${DIM}No criticism selected${RESET}`);
-    lines.push("");
-    lines.push(`${DIM}Use j/k to navigate${RESET}`);
+    // Empty state with box
+    lines.push(`${DIM}${TOP_LEFT}${HORIZONTAL.repeat(width - 2)}${TOP_RIGHT}${RESET}`);
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+    const emptyMsg = "No criticism selected";
+    const padding = Math.floor((width - 2 - emptyMsg.length) / 2);
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(padding)}${DIM}${emptyMsg}${RESET}${" ".repeat(width - 2 - padding - emptyMsg.length)}${DIM}${VERTICAL}${RESET}`);
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+    const navMsg = "Use j/k to navigate";
+    const navPadding = Math.floor((width - 2 - navMsg.length) / 2);
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(navPadding)}${DIM}${navMsg}${RESET}${" ".repeat(width - 2 - navPadding - navMsg.length)}${DIM}${VERTICAL}${RESET}`);
+    while (lines.length < height - 1) {
+      lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+    }
+    lines.push(`${DIM}${BOTTOM_LEFT}${HORIZONTAL.repeat(width - 2)}${BOTTOM_RIGHT}${RESET}`);
+    return lines.slice(0, height);
+  }
+
+  // Header row
+  const color = CATEGORY_COLORS[criticism.category];
+  const icon = CATEGORY_ICONS[criticism.category];
+  const headerText = `${icon} ${criticism.category}`;
+  lines.push(`${DIM}${TOP_LEFT}${RESET}${color}${BOLD} ${headerText} ${RESET}${DIM}${HORIZONTAL.repeat(width - headerText.length - 5)}${TOP_RIGHT}${RESET}`);
+
+  // Location
+  const loc = criticism.location || criticism.files[0] || "";
+  const locLine = truncateLine(` ${DIM}${loc}${RESET}`, innerWidth);
+  lines.push(`${DIM}${VERTICAL}${RESET}${locLine}${" ".repeat(Math.max(0, width - 2 - stripAnsi(locLine).length))}${DIM}${VERTICAL}${RESET}`);
+
+  // Separator
+  lines.push(`${DIM}${VERTICAL}${HORIZONTAL.repeat(width - 2)}${VERTICAL}${RESET}`);
+
+  // Subject (bold)
+  const subjectLines = wrapText(criticism.subject, innerWidth);
+  for (const sl of subjectLines) {
+    const padded = sl + " ".repeat(Math.max(0, innerWidth - sl.length));
+    lines.push(`${DIM}${VERTICAL}${RESET} ${BOLD}${padded}${RESET} ${DIM}${VERTICAL}${RESET}`);
+  }
+
+  // Empty line
+  lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+
+  // Description - word wrap
+  const descLines = wrapText(criticism.description, innerWidth);
+  for (const dl of descLines) {
+    const padded = dl + " ".repeat(Math.max(0, innerWidth - dl.length));
+    lines.push(`${DIM}${VERTICAL}${RESET} ${padded} ${DIM}${VERTICAL}${RESET}`);
+  }
+
+  // Empty line
+  lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+
+  // Files affected
+  if (criticism.files.length > 0) {
+    const filesLabel = "Files:";
+    lines.push(`${DIM}${VERTICAL}${RESET} ${DIM}${filesLabel}${RESET}${" ".repeat(width - 4 - filesLabel.length)} ${DIM}${VERTICAL}${RESET}`);
+    for (const file of criticism.files.slice(0, 3)) {
+      const fileLine = `  • ${file}`;
+      const truncFile = truncateLine(fileLine, innerWidth);
+      lines.push(`${DIM}${VERTICAL}${RESET} ${truncFile} ${DIM}${VERTICAL}${RESET}`);
+    }
+    if (criticism.files.length > 3) {
+      const moreText = `  +${criticism.files.length - 3} more...`;
+      lines.push(`${DIM}${VERTICAL}${RESET} ${DIM}${moreText}${RESET}${" ".repeat(width - 4 - moreText.length)} ${DIM}${VERTICAL}${RESET}`);
+    }
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+  }
+
+  // Diff preview if available
+  if (criticism.diff) {
+    lines.push(`${DIM}${VERTICAL}${RESET} ${DIM}Proposed change:${RESET}${" ".repeat(width - 20)} ${DIM}${VERTICAL}${RESET}`);
+    const diffLines = criticism.diff.split("\n").slice(0, 5);
+    for (const dl of diffLines) {
+      let coloredLine = dl;
+      let lineColor = DIM;
+      if (dl.startsWith("+")) lineColor = GREEN;
+      else if (dl.startsWith("-")) lineColor = RED;
+      const truncDiff = truncateLine(`${lineColor}${dl}${RESET}`, innerWidth);
+      lines.push(`${DIM}${VERTICAL}${RESET} ${truncDiff} ${DIM}${VERTICAL}${RESET}`);
+    }
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+  }
+
+  // Fill remaining space before actions
+  const actionsHeight = 3; // separator + action line + hint
+  while (lines.length < height - actionsHeight - 1) {
+    lines.push(`${DIM}${VERTICAL}${RESET}${" ".repeat(width - 2)}${DIM}${VERTICAL}${RESET}`);
+  }
+
+  // Actions separator
+  lines.push(`${DIM}${VERTICAL}${HORIZONTAL.repeat(width - 2)}${VERTICAL}${RESET}`);
+
+  if (state.inputMode === "reasoning") {
+    const reasoningLine = `Reasoning: ${state.reasoningBuffer}█`;
+    const truncReasoning = truncateLine(`${YELLOW}${reasoningLine}${RESET}`, innerWidth);
+    lines.push(`${DIM}${VERTICAL}${RESET} ${truncReasoning} ${DIM}${VERTICAL}${RESET}`);
+    const hintText = "Enter to confirm, Esc to cancel";
+    lines.push(`${DIM}${VERTICAL} ${hintText}${" ".repeat(width - 4 - hintText.length)} ${VERTICAL}${RESET}`);
   } else {
-    // Header with location
-    const color = CATEGORY_COLORS[criticism.category];
-    const icon = CATEGORY_ICONS[criticism.category];
-    lines.push(`${color}${BOLD}${icon} ${criticism.category}${RESET} ${DIM}│${RESET} ${criticism.location || criticism.files[0] || ""}`);
-    lines.push(`${DIM}${"─".repeat(width - 2)}${RESET}`);
-    lines.push("");
-
-    // Subject
-    lines.push(`${BOLD}${criticism.subject}${RESET}`);
-    lines.push("");
-
-    // Description - word wrap
-    const descWords = criticism.description.split(" ");
-    let currentLine = "";
-    for (const word of descWords) {
-      if (currentLine.length + word.length + 1 > width - 2) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = currentLine ? `${currentLine} ${word}` : word;
-      }
-    }
-    if (currentLine) lines.push(currentLine);
-
-    lines.push("");
-
-    // Files affected
-    if (criticism.files.length > 0) {
-      lines.push(`${DIM}Files:${RESET}`);
-      for (const file of criticism.files.slice(0, 3)) {
-        lines.push(`  ${DIM}•${RESET} ${file}`);
-      }
-      if (criticism.files.length > 3) {
-        lines.push(`  ${DIM}+${criticism.files.length - 3} more...${RESET}`);
-      }
-      lines.push("");
-    }
-
-    // Diff preview if available
-    if (criticism.diff) {
-      lines.push(`${DIM}Proposed change:${RESET}`);
-      const diffLines = criticism.diff.split("\n").slice(0, 5);
-      for (const dl of diffLines) {
-        if (dl.startsWith("+")) {
-          lines.push(`${GREEN}${dl}${RESET}`);
-        } else if (dl.startsWith("-")) {
-          lines.push(`${RED}${dl}${RESET}`);
-        } else {
-          lines.push(`${DIM}${dl}${RESET}`);
-        }
-      }
-      lines.push("");
-    }
-
-    // Actions
-    lines.push(`${DIM}${"─".repeat(width - 2)}${RESET}`);
-    if (state.inputMode === "reasoning") {
-      lines.push(`${YELLOW}Reasoning:${RESET} ${state.reasoningBuffer}█`);
-      lines.push(`${DIM}Press Enter to confirm, Esc to cancel${RESET}`);
-    } else {
-      lines.push(`${GREEN}[a]${RESET}ccept  ${RED}[r]${RESET}eject  ${YELLOW}[s]${RESET}kip  ${DIM}[q]${RESET}back`);
-      lines.push(`${DIM}Shift+A/R to add reasoning${RESET}`);
-    }
+    const actionsText = `${GREEN}[a]${RESET}ccept  ${RED}[r]${RESET}eject  ${YELLOW}[s]${RESET}kip  ${DIM}[q]${RESET}back`;
+    const actionsLen = "accept  reject  skip  back".length + 8; // Account for [x] brackets
+    lines.push(`${DIM}${VERTICAL}${RESET} ${actionsText}${" ".repeat(Math.max(0, width - 4 - actionsLen))} ${DIM}${VERTICAL}${RESET}`);
+    const hintText = "Shift+A/R to add reasoning";
+    lines.push(`${DIM}${VERTICAL} ${hintText}${" ".repeat(width - 4 - hintText.length)} ${VERTICAL}${RESET}`);
   }
 
-  // Pad to fill height
-  while (lines.length < height) {
-    lines.push("");
-  }
+  // Bottom border
+  lines.push(`${DIM}${BOTTOM_LEFT}${HORIZONTAL.repeat(width - 2)}${BOTTOM_RIGHT}${RESET}`);
 
   return lines.slice(0, height);
 }
@@ -264,27 +365,34 @@ function render(): void {
 
   // Get selected criticism
   let selectedCriticism: Criticism | null = null;
-  if (items[state.selectedIndex]?.type === "criticism") {
-    selectedCriticism = items[state.selectedIndex].criticism!;
+  const selectedItem = items[state.selectedIndex];
+  if (selectedItem?.type === "criticism" && selectedItem.criticism) {
+    selectedCriticism = selectedItem.criticism;
   }
 
   const leftLines = renderLeftPanel(items, state.selectedIndex, panelHeight);
   const rightLines = renderRightPanel(selectedCriticism, rightWidth, panelHeight);
 
-  process.stdout.write(CLEAR);
+  // Build output buffer to reduce flicker
+  let output = CLEAR;
 
   // Title bar
   const title = `${BOLD}${MAGENTA}crit${RESET} ${DIM}Issues Browser${RESET}`;
   const count = `${state.criticisms.length} pending`;
-  console.log(`${title}${" ".repeat(cols - stripAnsi(title).length - count.length)}${DIM}${count}${RESET}`);
+  const titlePadding = Math.max(0, cols - stripAnsi(title).length - count.length);
+  output += `${title}${" ".repeat(titlePadding)}${DIM}${count}${RESET}\n`;
 
   // Panels side by side
   for (let i = 0; i < panelHeight; i++) {
     const left = padRight(leftLines[i] || "", LEFT_PANEL_WIDTH);
     const divider = `${DIM}│${RESET}`;
     const right = rightLines[i] || "";
-    console.log(`${left} ${divider} ${right}`);
+    // Truncate the entire line to terminal width to prevent wrapping
+    const fullLine = `${left} ${divider} ${right}`;
+    output += truncateLine(fullLine, cols) + "\n";
   }
+
+  process.stdout.write(output);
 }
 
 function findNextCriticism(direction: 1 | -1): number {
@@ -303,9 +411,10 @@ function findNextCriticism(direction: 1 | -1): number {
 
 async function handleAccept(withReasoning: boolean): Promise<void> {
   const items = buildListItems(state.criticisms);
-  if (items[state.selectedIndex]?.type !== "criticism") return;
+  const selectedItem = items[state.selectedIndex];
+  if (selectedItem?.type !== "criticism" || !selectedItem.criticism) return;
 
-  const criticism = items[state.selectedIndex].criticism!;
+  const criticism = selectedItem.criticism;
 
   if (withReasoning) {
     state.inputMode = "reasoning";
@@ -333,9 +442,10 @@ async function handleAccept(withReasoning: boolean): Promise<void> {
 
 async function handleReject(withReasoning: boolean): Promise<void> {
   const items = buildListItems(state.criticisms);
-  if (items[state.selectedIndex]?.type !== "criticism") return;
+  const selectedItem = items[state.selectedIndex];
+  if (selectedItem?.type !== "criticism" || !selectedItem.criticism) return;
 
-  const criticism = items[state.selectedIndex].criticism!;
+  const criticism = selectedItem.criticism;
 
   if (withReasoning) {
     state.inputMode = "reasoning";
@@ -357,9 +467,10 @@ async function handleReject(withReasoning: boolean): Promise<void> {
 
 function handleSkip(): void {
   const items = buildListItems(state.criticisms);
-  if (items[state.selectedIndex]?.type !== "criticism") return;
+  const selectedItem = items[state.selectedIndex];
+  if (selectedItem?.type !== "criticism" || !selectedItem.criticism) return;
 
-  const criticism = items[state.selectedIndex].criticism!;
+  const criticism = selectedItem.criticism;
   updateCriticismStatus(state.projectRoot, criticism.id, "skipped");
 
   state.criticisms = state.criticisms.filter(c => c.id !== criticism.id);
@@ -369,9 +480,10 @@ function handleSkip(): void {
 
 async function confirmReasoning(action: "accept" | "reject"): Promise<void> {
   const items = buildListItems(state.criticisms);
-  if (items[state.selectedIndex]?.type !== "criticism") return;
+  const selectedItem = items[state.selectedIndex];
+  if (selectedItem?.type !== "criticism" || !selectedItem.criticism) return;
 
-  const criticism = items[state.selectedIndex].criticism!;
+  const criticism = selectedItem.criticism;
   criticism.reasoning = state.reasoningBuffer;
 
   if (action === "accept") {
@@ -499,7 +611,8 @@ export async function showIssuesBrowser(options: IssuesBrowserOptions = {}): Pro
   // Find first criticism (skip headers)
   const items = buildListItems(state.criticisms);
   for (let i = 0; i < items.length; i++) {
-    if (items[i].type === "criticism") {
+    const item = items[i];
+    if (item && item.type === "criticism") {
       state.selectedIndex = i;
       break;
     }
